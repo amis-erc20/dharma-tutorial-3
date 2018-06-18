@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class RequestLoanForm extends Component {
+export class RequestLoanForm extends Component {
     constructor(props) {
         super(props);
 
