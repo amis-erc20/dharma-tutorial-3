@@ -7,18 +7,15 @@ import Web3 from "web3";
 import { Dharma, Types as DharmaTypes } from "@dharmaprotocol/dharma.js";
 // Include basic style.
 import "./index.css";
+import { OpenDebtOrder } from "./OpenDebtOrder";
 
-// Check if web3 was injected by a browser extension.
-if (typeof window.web3 !== 'undefined') {
-    window.web3 = new Web3(window.web3.currentProvider);
-} else {
-    console.log("error imminent");
-    // Web3 was not injected by a browser extension.
-    throw new Error("web3 not instantiated");
-}
+import { RequestLoanForm } from "./form.js"
+
+// Instantiate web3 by connecting it to a local blockchain.
+const web3 = new Web3(Web3.providers.HttpProvider("https://localhost:8545"));
 
 // Instantiate a new instance of Dharma, injecting the web3 provider.
-const dharma = new Dharma(window.web3.currentProvider);
+const dharma = new Dharma(web3.currentProvider);
 
 // Prevent this dapp from being used on mainnet, since it's just a tutorial.
 dharma.web3.version.getNetwork((err, networkId) => {
@@ -28,12 +25,27 @@ dharma.web3.version.getNetwork((err, networkId) => {
 });
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            debtOrderOpened: false,
+            debtOrder: {
+                principal: "100 WETH",
+                collateral: "50,000 DAI"
+            },
+            openingDebtOrder: false
+        };
+    }
+
     async handleSaveForm() {
         const { TokenAmount, TimeInterval, EthereumAddress, InterestRate } = DharmaTypes;
 
-        const accounts = await window.web3.eth.getAccounts();
-        
-        const debtorAddressString = accounts[0];
+        const debtorAddressString = window.web3.eth.defaultAccount;
+
+        console.log((await dharma.web3.eth.getAccounts).then((resp) => {
+            console.log(resp);
+        }));
 
         const order = await DharmaTypes.DebtOrder.create(dharma, {
             principal: new TokenAmount(5, "WETH"),
@@ -48,16 +60,26 @@ class App extends Component {
     }
 
     render() {
-        this.handleSaveForm();
+        setTimeout(() => {
+            this.handleSaveForm();
+        }, 5000);
+
+        const { debtOrder, debtOrderOpened, openingDebtOrder } = this.state;
+
+        let debtOrderContent = null;
+
+        if (openingDebtOrder) {
+            debtOrderContent = <h2>Opening the debt order...</h2>;
+        } else if (debtOrderOpened) {
+            debtOrderContent = <OpenDebtOrder debtOrder={debtOrder} />;
+        }
 
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">Welcome to React</h1>
+                    <h1 className="App-title">Request a Loan on Dharma</h1>
                 </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                <RequestLoanForm />
             </div>
         );
     }
