@@ -6,6 +6,7 @@ import { OpenDebtOrder } from "./OpenDebtOrder";
 class App extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             debtOrderOpened: false,
             debtOrder: {
