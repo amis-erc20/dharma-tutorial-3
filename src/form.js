@@ -1,23 +1,33 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
+import { Component } from "react";
 
-class RequestLoanForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
+class RequestLoanForm extends Component {
+    constructor(props) {
+        super(props);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+          principal: undefined,
+          collateral: undefined,
+          expiration: undefined,
+          termLength: undefined,
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleInputChange(event) {
+      const target = event.target;
+      const value = target.value;
+      const name = target.name;
+
+      this.setState({
+        [name]: value
+      });
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+      console.log(this.state);
+      event.preventDefault();
   }
 
   render() {
@@ -25,8 +35,9 @@ class RequestLoanForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Principal Amount:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input name="principal" type="number" value={this.state.principal} onChange={this.handleChange} />
         </label>
+
 
         <input type="submit" value="Submit" />
       </form>
