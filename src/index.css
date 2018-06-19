@@ -22,6 +22,11 @@ body {
     border-radius: .25rem;
 }
 
+.request-form-label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
 .request-form-group {
     margin-bottom: 1rem;
 }
