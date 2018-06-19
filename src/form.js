@@ -33,27 +33,53 @@ export class RequestLoanForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Principal Amount:
-          <input name="principal" type="number" value={this.state.principal} onChange={this.handleInputChange} />
-        </label>
+          <div className="request-form-group">
+            <label>
+              Principal Amount:
+              <input className="request-form-input"
+                     name="principal"
+                     type="number"
+                     value={this.state.principal}
+                     onChange={this.handleInputChange} />
+            </label>
+          </div>
 
-        <label>
-          Collateral Amount:
-          <input name="collateral" type="number" value={this.state.collateral} onChange={this.handleInputChange} />
-        </label>
+        <div className="request-form-group">
+            <label>
+              Collateral Amount:
+              <input className="request-form-input"
+                     name="collateral"
+                     type="number"
+                     value={this.state.collateral}
+                     onChange={this.handleInputChange} />
+            </label>
+        </div>
 
-        <label>
-          Expiration:
-          <input name="expiration" type="number" value={this.state.expiration} onChange={this.handleInputChange} />
-        </label>
+        <div className="request-form-group">
+            <label>
+              Expiration:
+              <input className="request-form-input"
+                     name="expiration"
+                     type="number"
+                     value={this.state.expiration}
+                     onChange={this.handleInputChange} />
+            </label>
+        </div>
 
-        <label>
-          Term Length:
-          <input name="termLength" type="number" value={this.state.termLength} onChange={this.handleInputChange} />
-        </label>
+        <div className="request-form-group">
+            <label>
+              Term Length:
+              <input className="request-form-input"
+                     name="termLength"
+                     type="number"
+                     value={this.state.termLength}
+                     onChange={this.handleInputChange} />
+            </label>
+        </div>
 
-        <input type="submit" value="Submit" />
+        <div className="request-form-group">
+            <input type="submit" value="Submit" />
+        </div>
       </form>
     );
   }
