@@ -34,7 +34,7 @@ export class RequestLoanForm extends Component {
         return (
             <form onSubmit={this.handleSubmit} className="request-form">
                 <div className="request-form-group">
-                    <label className="request-form-label">Principal Amount:</label>
+                    <label className="request-form-label">Principal Amount</label>
                     <input className="request-form-input"
                            name="principal"
                            type="number"
@@ -44,7 +44,7 @@ export class RequestLoanForm extends Component {
                 </div>
 
                 <div className="request-form-group">
-                    <label className="request-form-label">Collateral Amount:</label>
+                    <label className="request-form-label">Collateral Amount</label>
                     <input className="request-form-input"
                            name="collateral"
                            type="number"
@@ -54,7 +54,7 @@ export class RequestLoanForm extends Component {
                 </div>
 
                 <div className="request-form-group">
-                    <label className="request-form-label">Expiration:</label>
+                    <label className="request-form-label">Expiration</label>
                     <input className="request-form-input"
                            name="expiration"
                            type="number"
@@ -63,7 +63,7 @@ export class RequestLoanForm extends Component {
                 </div>
 
                 <div className="request-form-group">
-                    <label className="request-form-label">Term Length:</label>
+                    <label className="request-form-label">Term Length</label>
                     <input className="request-form-input"
                            name="termLength"
                            type="number"
