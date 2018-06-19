@@ -17,13 +17,6 @@ const web3 = new Web3(Web3.providers.HttpProvider("https://localhost:8545"));
 // Instantiate a new instance of Dharma, injecting the web3 provider.
 const dharma = new Dharma(web3.currentProvider);
 
-// Prevent this dapp from being used on mainnet, since it's just a tutorial.
-dharma.web3.version.getNetwork((err, networkId) => {
-    if (parseInt(networkId, 10) === 1) {
-        throw new Error("Cannot use on mainnet. Change to testnet or local");
-    }
-});
-
 class App extends Component {
     constructor(props) {
         super(props);
