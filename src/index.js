@@ -12,7 +12,8 @@ import { OpenDebtOrder } from "./OpenDebtOrder";
 import { RequestLoanForm } from "./form.js"
 
 // Instantiate web3 by connecting it to a local blockchain.
-const web3 = new Web3(Web3.providers.HttpProvider("https://localhost:8545"));
+const web3 = new Web3();
+web3.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 // Instantiate a new instance of Dharma, injecting the web3 provider.
 const dharma = new Dharma(web3.currentProvider);
@@ -34,11 +35,11 @@ class App extends Component {
     async handleSaveForm() {
         const { TokenAmount, TimeInterval, EthereumAddress, InterestRate } = DharmaTypes;
 
-        const debtorAddressString = window.web3.eth.defaultAccount;
+        const accounts = await new Promise((resolve) => {
+            web3.eth.getAccounts((err, result) => resolve(result));
+        });
 
-        console.log((await dharma.web3.eth.getAccounts).then((resp) => {
-            console.log(resp);
-        }));
+        const debtorAddressString = accounts[0];
 
         const order = await DharmaTypes.DebtOrder.create(dharma, {
             principal: new TokenAmount(5, "WETH"),
@@ -55,7 +56,7 @@ class App extends Component {
     render() {
         setTimeout(() => {
             this.handleSaveForm();
-        }, 5000);
+        }, 1000);
 
         const { debtOrder, debtOrderOpened, openingDebtOrder } = this.state;
 
