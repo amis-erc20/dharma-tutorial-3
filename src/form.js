@@ -32,7 +32,7 @@ export class RequestLoanForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="request-form">
           <div className="request-form-group">
             <label>
               Principal Amount:
@@ -78,7 +78,7 @@ export class RequestLoanForm extends Component {
         </div>
 
         <div className="request-form-group">
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" className="request-form-button" />
         </div>
       </form>
     );
