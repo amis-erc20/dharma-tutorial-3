@@ -54,9 +54,7 @@ class App extends Component {
     }
 
     render() {
-        setTimeout(() => {
-            this.handleSaveForm();
-        }, 1000);
+        this.handleSaveForm();
 
         const { debtOrder, debtOrderOpened, openingDebtOrder } = this.state;
 
