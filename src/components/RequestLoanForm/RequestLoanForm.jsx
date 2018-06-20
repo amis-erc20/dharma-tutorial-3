@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import RequestLoanFormInput from "./RequestLoanFormInput";
-import RequestLoanFormSubmit from "./RequestLoanFormSubmit";
+import RequestLoanFormInput from "./Input/RequestLoanFormInput";
+import RequestLoanFormSubmit from "./Submit/RequestLoanFormSubmit";
 
 import "./RequestLoanForm.css";
 

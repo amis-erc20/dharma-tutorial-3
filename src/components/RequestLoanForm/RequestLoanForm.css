@@ -2,38 +2,6 @@
     max-width: 500px;
 }
 
-.request-form-input {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-}
-
-.request-form-label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-
-.request-form-group {
-    margin-bottom: 1rem;
-}
-
-.request-form-button {
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-
-    cursor: pointer;
-}
-
 .request-form-input[disabled],
 .request-form-button[disabled] {
     background-color: #eee;

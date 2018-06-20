@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import "./RequestLoanFormInput.css";
+
 export default class RequestLoanFormInput extends Component {
     render() {
         const { label, value, handleInputChange, disabled } = this.props;
