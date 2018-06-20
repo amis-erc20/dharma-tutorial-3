@@ -23,17 +23,21 @@ class App extends Component {
         super(props);
 
         this.state = {
-            debtOrderOpened: false,
-            debtOrder: {
-                principal: "100 WETH",
-                collateral: "50,000 DAI"
-            },
-            openingDebtOrder: false
+            debtOrder: null,
+            isAwaitingBlockchain: false
         };
+
+        this.handleSaveForm = this.handleSaveForm.bind(this);
     }
 
-    async handleSaveForm() {
+    async handleSaveForm(formData) {
+        this.setState({
+            isAwaitingBlockchain: true,
+        });
+
         const { TokenAmount, TimeInterval, EthereumAddress, InterestRate } = DharmaTypes;
+
+        const { principal, collateral, expiration, termLength } = formData;
 
         const accounts = await new Promise((resolve) => {
             web3.eth.getAccounts((err, result) => resolve(result));
@@ -42,27 +46,28 @@ class App extends Component {
         const debtorAddressString = accounts[0];
 
         const order = await DharmaTypes.DebtOrder.create(dharma, {
-            principal: new TokenAmount(5, "WETH"),
-            collateral: new TokenAmount(100, "REP"),
+            principal: new TokenAmount(principal, "WETH"),
+            collateral: new TokenAmount(collateral, "REP"),
             debtorAddress: new EthereumAddress(debtorAddressString),
             interestRate: new InterestRate(5),
-            termLength: new TimeInterval(2, "months"),
-            expiresIn: new TimeInterval(1, "week")
+            termLength: new TimeInterval(termLength, "months"),
+            expiresIn: new TimeInterval(expiration, "week")
         });
 
-        console.log(order);
+        this.setState({
+            debtOrder: order.serialize(),
+            isAwaitingBlockchain: false,
+        });
     }
 
     render() {
-        this.handleSaveForm();
-
-        const { debtOrder, debtOrderOpened, openingDebtOrder } = this.state;
+        const { debtOrder, isAwaitingBlockchain } = this.state;
 
         let debtOrderContent = null;
 
-        if (openingDebtOrder) {
-            debtOrderContent = <h2>Opening the debt order...</h2>;
-        } else if (debtOrderOpened) {
+        if (isAwaitingBlockchain) {
+            debtOrderContent = <h2>Creating a new debt order...</h2>;
+        } else if (debtOrder) {
             debtOrderContent = <OpenDebtOrder debtOrder={debtOrder} />;
         }
 
@@ -71,7 +76,8 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Request a Loan on Dharma</h1>
                 </header>
-                <RequestLoanForm />
+                <RequestLoanForm handleSaveForm={this.handleSaveForm} />
+                {debtOrderContent}
             </div>
         );
     }

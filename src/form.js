@@ -5,10 +5,10 @@ export class RequestLoanForm extends Component {
         super(props);
 
         this.state = {
-            principal: undefined,
-            collateral: undefined,
-            expiration: undefined,
-            termLength: undefined,
+          principal: 0,
+          collateral: 0,
+          expiration: 0,
+          termLength: 0,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,8 +26,8 @@ export class RequestLoanForm extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
+        this.props.handleSaveForm(this.state);
     }
 
     render() {
