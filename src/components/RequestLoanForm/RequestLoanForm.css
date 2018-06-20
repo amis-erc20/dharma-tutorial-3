@@ -1,0 +1,14 @@
+.request-form {
+    max-width: 500px;
+}
+
+.request-form-input[disabled],
+.request-form-button[disabled] {
+    background-color: #eee;
+}
+
+.request-form-button[disabled] {
+    color: #333;
+    border: 1px solid #333;
+    cursor: default;
+}
