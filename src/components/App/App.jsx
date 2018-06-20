@@ -64,7 +64,7 @@ export default class App extends Component {
     }
 
     render() {
-        const { debtOrder, isAwaitingBlockchain } = this.state;
+        const { isAwaitingBlockchain } = this.state;
 
         return (
             <div className="App">
