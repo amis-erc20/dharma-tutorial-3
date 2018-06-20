@@ -6,7 +6,7 @@ import Web3 from "web3";
 import Dharma from "@dharmaprotocol/dharma.js";
 // Include basic style.
 import "./App.css";
-
+// Form components
 import { OpenDebtOrder } from "../OpenDebtOrder";
 import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 

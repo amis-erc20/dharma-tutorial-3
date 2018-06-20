@@ -1,4 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+
+import RequestLoanFormInput from "./RequestLoanFormInput";
+import RequestLoanFormSubmit from "./RequestLoanFormSubmit";
 
 import "./RequestLoanForm.css";
 
@@ -7,10 +10,10 @@ export class RequestLoanForm extends Component {
         super(props);
 
         this.state = {
-          principal: 0,
-          collateral: 0,
-          expiration: 0,
-          termLength: 0,
+            principal: 0,
+            collateral: 0,
+            expiration: 0,
+            termLength: 0
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,56 +41,36 @@ export class RequestLoanForm extends Component {
         const { principal, collateral, expiration, termLength } = this.state;
 
         return (
-            <form className="request-form"
-                  onSubmit={this.handleSubmit}>
-                <div className="request-form-group">
-                    <label className="request-form-label">Principal Amount</label>
-                    <input className="request-form-input"
-                           name="principal"
-                           type="number"
-                           value={principal}
-                           onChange={this.handleInputChange}
-                           disabled={isAwaitingBlockchain} />
+            <form className="request-form" onSubmit={this.handleSubmit}>
+                <RequestLoanFormInput
+                    label="Principal"
+                    value={principal}
+                    disabled={isAwaitingBlockchain}
+                    handleInputChange={this.handleInputChange}
+                />
 
-                </div>
+                <RequestLoanFormInput
+                    label="Collateral Amount"
+                    value={collateral}
+                    disabled={isAwaitingBlockchain}
+                    handleInputChange={this.handleInputChange}
+                />
 
-                <div className="request-form-group">
-                    <label className="request-form-label">Collateral Amount</label>
-                    <input className="request-form-input"
-                           name="collateral"
-                           type="number"
-                           value={collateral}
-                           onChange={this.handleInputChange}
-                           disabled={isAwaitingBlockchain} />
+                <RequestLoanFormInput
+                    label="Expiration"
+                    value={expiration}
+                    disabled={isAwaitingBlockchain}
+                    handleInputChange={this.handleInputChange}
+                />
 
-                </div>
+                <RequestLoanFormInput
+                    label="Term Length"
+                    value={termLength}
+                    disabled={isAwaitingBlockchain}
+                    handleInputChange={this.handleInputChange}
+                />
 
-                <div className="request-form-group">
-                    <label className="request-form-label">Expiration</label>
-                    <input className="request-form-input"
-                           name="expiration"
-                           type="number"
-                           value={expiration}
-                           onChange={this.handleInputChange}
-                           disabled={isAwaitingBlockchain} />
-                </div>
-
-                <div className="request-form-group">
-                    <label className="request-form-label">Term Length</label>
-                    <input className="request-form-input"
-                           name="termLength"
-                           type="number"
-                           value={termLength}
-                           onChange={this.handleInputChange}
-                           disabled={isAwaitingBlockchain} />
-                </div>
-
-                <div className="request-form-group">
-                    <input type="submit"
-                           value="Submit"
-                           className="request-form-button"
-                           disabled={isAwaitingBlockchain} />
-                </div>
+                <RequestLoanFormSubmit disabled={isAwaitingBlockchain} />
             </form>
         );
     }
