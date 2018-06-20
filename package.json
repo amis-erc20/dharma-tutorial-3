@@ -1,18 +1,18 @@
 {
-  "name": "test-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@dharmaprotocol/dharma.js": "dharmaprotocol/dharma.js#simple-api",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
-    "web3": "0.20.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "name": "test-app",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@dharmaprotocol/dharma.js": "^0.1.1",
+        "react": "^16.4.1",
+        "react-dom": "^16.4.1",
+        "react-scripts": "1.1.4",
+        "web3": "0.20.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    }
 }

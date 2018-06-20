@@ -1,14 +1,13 @@
 // External libraries
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 // Require Web3 for interacting with the Ethereum blockchain.
 import Web3 from "web3";
 // Require the Dharma.js constructor.
-import { Dharma, Types as DharmaTypes } from "@dharmaprotocol/dharma.js";
+import Dharma from "@dharmaprotocol/dharma.js";
 // Include basic style.
 import "./App.css";
-import { OpenDebtOrder } from "./OpenDebtOrder";
 
+import { OpenDebtOrder } from "./OpenDebtOrder";
 import { RequestLoanForm } from "./RequestLoanForm";
 
 // Instantiate web3 by connecting it to a local blockchain.
@@ -18,7 +17,7 @@ web3.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"));
 // Instantiate a new instance of Dharma, injecting the web3 provider.
 const dharma = new Dharma(web3.currentProvider);
 
-class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -35,7 +34,7 @@ class App extends Component {
             isAwaitingBlockchain: true
         });
 
-        const { TokenAmount, TimeInterval, EthereumAddress, InterestRate } = DharmaTypes;
+        const { DebtOrder, TokenAmount, TimeInterval, EthereumAddress, InterestRate } = Dharma.Types;
 
         const { principal, collateral, expiration, termLength } = formData;
 
@@ -45,7 +44,7 @@ class App extends Component {
 
         const debtorAddressString = accounts[0];
 
-        const order = await DharmaTypes.DebtOrder.create(dharma, {
+        const order = await DebtOrder.create(dharma, {
             principal: new TokenAmount(principal, "WETH"),
             collateral: new TokenAmount(collateral, "REP"),
             debtorAddress: new EthereumAddress(debtorAddressString),
@@ -82,5 +81,3 @@ class App extends Component {
         );
     }
 }
-
-ReactDOM.render(<App />, document.getElementById("root"));
