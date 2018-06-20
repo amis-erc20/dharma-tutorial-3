@@ -6,10 +6,10 @@ import Web3 from "web3";
 // Require the Dharma.js constructor.
 import { Dharma, Types as DharmaTypes } from "@dharmaprotocol/dharma.js";
 // Include basic style.
-import "./index.css";
+import "./App.css";
 import { OpenDebtOrder } from "./OpenDebtOrder";
 
-import { RequestLoanForm } from "./form.js"
+import { RequestLoanForm } from "./RequestLoanForm";
 
 // Instantiate web3 by connecting it to a local blockchain.
 const web3 = new Web3();
@@ -32,14 +32,14 @@ class App extends Component {
 
     async handleSaveForm(formData) {
         this.setState({
-            isAwaitingBlockchain: true,
+            isAwaitingBlockchain: true
         });
 
         const { TokenAmount, TimeInterval, EthereumAddress, InterestRate } = DharmaTypes;
 
         const { principal, collateral, expiration, termLength } = formData;
 
-        const accounts = await new Promise((resolve) => {
+        const accounts = await new Promise(resolve => {
             web3.eth.getAccounts((err, result) => resolve(result));
         });
 
@@ -56,7 +56,7 @@ class App extends Component {
 
         this.setState({
             debtOrder: order.serialize(),
-            isAwaitingBlockchain: false,
+            isAwaitingBlockchain: false
         });
     }
 
