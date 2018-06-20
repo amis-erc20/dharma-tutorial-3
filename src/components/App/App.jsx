@@ -7,8 +7,8 @@ import Dharma from "@dharmaprotocol/dharma.js";
 // Include basic style.
 import "./App.css";
 
-import { OpenDebtOrder } from "./OpenDebtOrder";
-import { RequestLoanForm } from "./RequestLoanForm";
+import { OpenDebtOrder } from "../OpenDebtOrder";
+import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
 // Instantiate web3 by connecting it to a local blockchain.
 const web3 = new Web3();

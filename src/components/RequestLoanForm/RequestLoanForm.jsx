@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 
+import "./RequestLoanForm.css";
+
 export class RequestLoanForm extends Component {
     constructor(props) {
         super(props);
