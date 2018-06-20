@@ -26,10 +26,10 @@ export default class App extends Component {
             isAwaitingBlockchain: false
         };
 
-        this.handleSaveForm = this.handleSaveForm.bind(this);
+        this.createDebtOrder = this.createDebtOrder.bind(this);
     }
 
-    async handleSaveForm(formData) {
+    async createDebtOrder(formData) {
         this.setState({
             isAwaitingBlockchain: true
         });
@@ -75,7 +75,9 @@ export default class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Request a Loan on Dharma</h1>
                 </header>
-                <RequestLoanForm handleSaveForm={this.handleSaveForm} />
+                <RequestLoanForm createDebtOrder={this.createDebtOrder}
+                                 isAwaitingBlockchain={isAwaitingBlockchain}
+                />
                 {debtOrderContent}
             </div>
         );

@@ -27,19 +27,25 @@ export class RequestLoanForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.handleSaveForm(this.state);
+
+        this.props.createDebtOrder(this.state);
     }
 
     render() {
+        const { isAwaitingBlockchain } = this.props;
+        const { principal, collateral, expiration, termLength } = this.state;
+
         return (
-            <form onSubmit={this.handleSubmit} className="request-form">
+            <form className="request-form"
+                  onSubmit={this.handleSubmit}>
                 <div className="request-form-group">
                     <label className="request-form-label">Principal Amount</label>
                     <input className="request-form-input"
                            name="principal"
                            type="number"
-                           value={this.state.principal}
-                           onChange={this.handleInputChange}/>
+                           value={principal}
+                           onChange={this.handleInputChange}
+                           disabled={isAwaitingBlockchain} />
 
                 </div>
 
@@ -48,8 +54,9 @@ export class RequestLoanForm extends Component {
                     <input className="request-form-input"
                            name="collateral"
                            type="number"
-                           value={this.state.collateral}
-                           onChange={this.handleInputChange}/>
+                           value={collateral}
+                           onChange={this.handleInputChange}
+                           disabled={isAwaitingBlockchain} />
 
                 </div>
 
@@ -58,8 +65,9 @@ export class RequestLoanForm extends Component {
                     <input className="request-form-input"
                            name="expiration"
                            type="number"
-                           value={this.state.expiration}
-                           onChange={this.handleInputChange}/>
+                           value={expiration}
+                           onChange={this.handleInputChange}
+                           disabled={isAwaitingBlockchain} />
                 </div>
 
                 <div className="request-form-group">
@@ -67,12 +75,16 @@ export class RequestLoanForm extends Component {
                     <input className="request-form-input"
                            name="termLength"
                            type="number"
-                           value={this.state.termLength}
-                           onChange={this.handleInputChange}/>
+                           value={termLength}
+                           onChange={this.handleInputChange}
+                           disabled={isAwaitingBlockchain} />
                 </div>
 
                 <div className="request-form-group">
-                    <input type="submit" value="Submit" className="request-form-button"/>
+                    <input type="submit"
+                           value="Submit"
+                           className="request-form-button"
+                           disabled={isAwaitingBlockchain} />
                 </div>
             </form>
         );
