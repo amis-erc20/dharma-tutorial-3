@@ -43,28 +43,32 @@ export class RequestLoanForm extends Component {
         return (
             <form className="request-form" onSubmit={this.handleSubmit}>
                 <RequestLoanFormInput
-                    label="Principal"
+                    label="Principal Amount (WETH)"
+                    name="principal"
                     value={principal}
                     disabled={isAwaitingBlockchain}
                     handleInputChange={this.handleInputChange}
                 />
 
                 <RequestLoanFormInput
-                    label="Collateral Amount"
+                    label="Collateral Amount (REP)"
+                    name="collateral"
                     value={collateral}
                     disabled={isAwaitingBlockchain}
                     handleInputChange={this.handleInputChange}
                 />
 
                 <RequestLoanFormInput
-                    label="Expiration"
+                    label="Expiration (weeks)"
+                    name="expiration"
                     value={expiration}
                     disabled={isAwaitingBlockchain}
                     handleInputChange={this.handleInputChange}
                 />
 
                 <RequestLoanFormInput
-                    label="Term Length"
+                    label="Term Length (months)"
+                    name="termLength"
                     value={termLength}
                     disabled={isAwaitingBlockchain}
                     handleInputChange={this.handleInputChange}

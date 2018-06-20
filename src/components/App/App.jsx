@@ -1,14 +1,10 @@
-// External libraries
 import React, { Component } from "react";
-// Require Web3 for interacting with the Ethereum blockchain.
 import Web3 from "web3";
-// Require the Dharma.js constructor.
 import Dharma from "@dharmaprotocol/dharma.js";
-// Include basic style.
-import "./App.css";
-// Form components
-import { OpenDebtOrder } from "../OpenDebtOrder";
+
 import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
+
+import "./App.css";
 
 // Instantiate web3 by connecting it to a local blockchain.
 const web3 = new Web3();
@@ -22,7 +18,6 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            debtOrder: null,
             isAwaitingBlockchain: false
         };
 
@@ -42,6 +37,14 @@ export default class App extends Component {
             web3.eth.getAccounts((err, result) => resolve(result));
         });
 
+        if (!accounts) {
+            console.error("No acccounts detected from web3 -- ensure a local blockchain is running.");
+
+            this.setState({ isAwaitingBlockchain: false });
+
+            return;
+        }
+
         const debtorAddressString = accounts[0];
 
         const order = await DebtOrder.create(dharma, {
@@ -53,8 +56,9 @@ export default class App extends Component {
             expiresIn: new TimeInterval(expiration, "week")
         });
 
+        console.log(order.serialize());
+
         this.setState({
-            debtOrder: order.serialize(),
             isAwaitingBlockchain: false
         });
     }
@@ -62,23 +66,13 @@ export default class App extends Component {
     render() {
         const { debtOrder, isAwaitingBlockchain } = this.state;
 
-        let debtOrderContent = null;
-
-        if (isAwaitingBlockchain) {
-            debtOrderContent = <h2>Creating a new debt order...</h2>;
-        } else if (debtOrder) {
-            debtOrderContent = <OpenDebtOrder debtOrder={debtOrder} />;
-        }
-
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Request a Loan on Dharma</h1>
                 </header>
-                <RequestLoanForm createDebtOrder={this.createDebtOrder}
-                                 isAwaitingBlockchain={isAwaitingBlockchain}
-                />
-                {debtOrderContent}
+
+                <RequestLoanForm createDebtOrder={this.createDebtOrder} isAwaitingBlockchain={isAwaitingBlockchain} />
             </div>
         );
     }
