@@ -6,12 +6,14 @@ import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
 import "./App.css";
 
-// Instantiate web3 by connecting it to a local blockchain.
-const web3 = new Web3();
-web3.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"));
+// Instantiate a new HTTP provider at the address of the local blockchain.
+const provider = new Web3.providers.HttpProvider("http://localhost:8545");
+
+// Instantiate web3 by connecting it to the local blockchain.
+const web3 = new Web3(provider);
 
 // Instantiate a new instance of Dharma, injecting the web3 provider.
-const dharma = new Dharma(web3.currentProvider);
+const dharma = new Dharma(provider);
 
 export default class App extends Component {
     constructor(props) {
