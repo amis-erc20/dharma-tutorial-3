@@ -50,12 +50,16 @@ export default class App extends Component {
         const debtorAddressString = accounts[0];
 
         const order = await DebtOrder.create(dharma, {
-            principal: new TokenAmount(principal, "WETH"),
-            collateral: new TokenAmount(collateral, "REP"),
-            debtorAddress: new EthereumAddress(debtorAddressString),
-            interestRate: new InterestRate(5),
-            termLength: new TimeInterval(termLength, "months"),
-            expiresIn: new TimeInterval(expiration, "week")
+            principalAmount: principal,
+            principalToken: "WETH",
+            collateralAmount: collateral,
+            collateralToken: "REP",
+            interestRate: interestRate,
+            termDuration: termLength,
+            termUnit: "months",
+            debtorAddress: debtorAddressString,
+            expiresInDuration: expiration,
+            expiresInUnit: "weeks",
         });
 
         console.log(order.serialize());
