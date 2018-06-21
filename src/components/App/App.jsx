@@ -9,7 +9,7 @@ import "./App.css";
 // Instantiate a new HTTP provider at the address of the local blockchain.
 const provider = new Web3.providers.HttpProvider("http://localhost:8545");
 
-// Instantiate web3 by connecting it to the local blockchain.
+// Instantiate Web3 by connecting it to the local blockchain.
 const web3 = new Web3(provider);
 
 // Instantiate a new instance of Dharma, injecting the web3 provider.
@@ -33,7 +33,7 @@ export default class App extends Component {
 
         const { DebtOrder } = Dharma.Types;
 
-        const { principal, collateral, expiration, termLength } = formData;
+        const { principal, collateral, expiration, termLength, interestRate } = formData;
 
         const accounts = await new Promise(resolve => {
             web3.eth.getAccounts((err, result) => resolve(result));
