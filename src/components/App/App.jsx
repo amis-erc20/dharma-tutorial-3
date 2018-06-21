@@ -31,7 +31,7 @@ export default class App extends Component {
             isAwaitingBlockchain: true
         });
 
-        const { DebtOrder, TokenAmount, TimeInterval, EthereumAddress, InterestRate } = Dharma.Types;
+        const { DebtOrder } = Dharma.Types;
 
         const { principal, collateral, expiration, termLength } = formData;
 
