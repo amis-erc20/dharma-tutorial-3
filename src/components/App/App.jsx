@@ -17,7 +17,6 @@ export default class App extends Component {
         };
 
         this.createDebtOrder = this.createDebtOrder.bind(this);
-        this.getAccounts = this.getAccounts.bind(this);
     }
 
     async createDebtOrder(formData) {
