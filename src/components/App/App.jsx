@@ -24,6 +24,13 @@ export default class App extends Component {
         };
 
         this.createDebtOrder = this.createDebtOrder.bind(this);
+        this.getAccounts = this.getAccounts.bind(this);
+    }
+
+    async getAccounts() {
+        return new Promise(resolve => {
+            web3.eth.getAccounts((err, result) => resolve(result));
+        });
     }
 
     async createDebtOrder(formData) {
@@ -35,9 +42,7 @@ export default class App extends Component {
 
         const { principal, collateral, expiration, termLength, interestRate } = formData;
 
-        const accounts = await new Promise(resolve => {
-            web3.eth.getAccounts((err, result) => resolve(result));
-        });
+        const accounts = await this.getAccounts();
 
         if (!accounts) {
             console.error("No acccounts detected from web3 -- ensure a local blockchain is running.");
