@@ -8,9 +8,9 @@
   dependencies:
     zeppelin-solidity "1.8.0"
 
-"@dharmaprotocol/dharma.js@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.1.tgz#140c39d7480e41325f9118d5b242024090a8a6d2"
+"@dharmaprotocol/dharma.js@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.3.tgz#cc44ac5305396bbad095e04a06e787f9ad1c32f3"
   dependencies:
     "@dharmaprotocol/contracts" "0.1.0"
     "@types/lodash" "^4.14.104"
@@ -53,9 +53,9 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-"abi-decoder@https://github.com/dharmaprotocol/abi-decoder":
+"abi-decoder@git+https://github.com/dharmaprotocol/abi-decoder.git":
   version "1.1.0"
-  resolved "https://github.com/dharmaprotocol/abi-decoder#9448e51a134633673ccbb07a3df0ed2b0c47ab62"
+  resolved "git+https://github.com/dharmaprotocol/abi-decoder.git#9448e51a134633673ccbb07a3df0ed2b0c47ab62"
   dependencies:
     babel-core "^6.23.1"
     babel-loader "^6.3.2"
