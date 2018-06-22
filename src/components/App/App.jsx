@@ -1,19 +1,12 @@
 import React, { Component } from "react";
-import Web3 from "web3";
 import Dharma from "@dharmaprotocol/dharma.js";
 
 import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
 import "./App.css";
 
-// Instantiate a new HTTP provider at the address of the local blockchain.
-const provider = new Web3.providers.HttpProvider("http://localhost:8545");
-
-// Instantiate Web3 by connecting it to the local blockchain.
-const web3 = new Web3(provider);
-
-// Instantiate a new instance of Dharma, injecting the web3 provider.
-const dharma = new Dharma(provider);
+// Instantiate a new instance of Dharma, passing in the host of the local blockchain.
+const dharma = new Dharma("http://localhost:8545");
 
 export default class App extends Component {
     constructor(props) {
@@ -27,12 +20,6 @@ export default class App extends Component {
         this.getAccounts = this.getAccounts.bind(this);
     }
 
-    async getAccounts() {
-        return new Promise(resolve => {
-            web3.eth.getAccounts((err, result) => resolve(result));
-        });
-    }
-
     async createDebtOrder(formData) {
         this.setState({
             isAwaitingBlockchain: true
@@ -42,7 +29,7 @@ export default class App extends Component {
 
         const { principal, collateral, expiration, termLength, interestRate } = formData;
 
-        const accounts = await this.getAccounts();
+        const accounts = await dharma.blockchain.getAccounts();
 
         if (!accounts) {
             console.error("No acccounts detected from web3 -- ensure a local blockchain is running.");
@@ -64,7 +51,7 @@ export default class App extends Component {
             termUnit: "months",
             debtorAddress: debtorAddressString,
             expiresInDuration: expiration,
-            expiresInUnit: "weeks",
+            expiresInUnit: "weeks"
         });
 
         console.log(order.serialize());
