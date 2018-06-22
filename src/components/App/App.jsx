@@ -9,7 +9,7 @@ import "./App.css";
 // Instantiate a new HTTP provider at the address of the local blockchain.
 const provider = new Web3.providers.HttpProvider("http://localhost:8545");
 
-// Instantiate web3 by connecting it to the local blockchain.
+// Instantiate Web3 by connecting it to the local blockchain.
 const web3 = new Web3(provider);
 
 // Instantiate a new instance of Dharma, injecting the web3 provider.
@@ -24,6 +24,13 @@ export default class App extends Component {
         };
 
         this.createDebtOrder = this.createDebtOrder.bind(this);
+        this.getAccounts = this.getAccounts.bind(this);
+    }
+
+    async getAccounts() {
+        return new Promise(resolve => {
+            web3.eth.getAccounts((err, result) => resolve(result));
+        });
     }
 
     async createDebtOrder(formData) {
@@ -31,13 +38,11 @@ export default class App extends Component {
             isAwaitingBlockchain: true
         });
 
-        const { DebtOrder, TokenAmount, TimeInterval, EthereumAddress, InterestRate } = Dharma.Types;
+        const { DebtOrder } = Dharma.Types;
 
-        const { principal, collateral, expiration, termLength } = formData;
+        const { principal, collateral, expiration, termLength, interestRate } = formData;
 
-        const accounts = await new Promise(resolve => {
-            web3.eth.getAccounts((err, result) => resolve(result));
-        });
+        const accounts = await this.getAccounts();
 
         if (!accounts) {
             console.error("No acccounts detected from web3 -- ensure a local blockchain is running.");
@@ -50,12 +55,16 @@ export default class App extends Component {
         const debtorAddressString = accounts[0];
 
         const order = await DebtOrder.create(dharma, {
-            principal: new TokenAmount(principal, "WETH"),
-            collateral: new TokenAmount(collateral, "REP"),
-            debtorAddress: new EthereumAddress(debtorAddressString),
-            interestRate: new InterestRate(5),
-            termLength: new TimeInterval(termLength, "months"),
-            expiresIn: new TimeInterval(expiration, "week")
+            principalAmount: principal,
+            principalToken: "WETH",
+            collateralAmount: collateral,
+            collateralToken: "REP",
+            interestRate: interestRate,
+            termDuration: termLength,
+            termUnit: "months",
+            debtorAddress: debtorAddressString,
+            expiresInDuration: expiration,
+            expiresInUnit: "weeks",
         });
 
         console.log(order.serialize());
