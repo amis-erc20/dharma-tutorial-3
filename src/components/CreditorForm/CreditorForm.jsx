@@ -9,7 +9,6 @@ export class CreditorForm extends Component {
 
         return (
             <div>
-                <h1>Fill a Loan on Dharma</h1>
                 <AllowPrincipalTransfer debtOrder={debtOrder} />
                 <FillLoan debtOrder={debtOrder} />
             </div>

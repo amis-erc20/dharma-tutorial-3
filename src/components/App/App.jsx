@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Dharma from "@dharmaprotocol/dharma.js";
 
-import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
-import { CreditorForm } from "../CreditorForm/CreditorForm";
-
-import "./App.css";
+// Tutorials
+import Open from "../../tutorials/Open";
+import Fill from "../../tutorials/Fill";
 
 // Instantiate a new instance of Dharma, passing in the host of the local blockchain.
 const dharma = new Dharma("http://localhost:8545");
@@ -63,16 +62,13 @@ export default class App extends Component {
     }
 
     render() {
-        const { isAwaitingBlockchain, debtOrder } = this.state;
+        const { debtOrder } = this.state;
 
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Request a Loan on Dharma</h1>
-                </header>
+                <Open dharma={dharma} debtOrder={debtOrder} createDebtOrder={this.createDebtOrder}/>
 
-                <RequestLoanForm createDebtOrder={this.createDebtOrder} isAwaitingBlockchain={isAwaitingBlockchain} />
-                <CreditorForm debtOrder={debtOrder} />
+                <Fill debtOrder={debtOrder} />
             </div>
         );
     }
