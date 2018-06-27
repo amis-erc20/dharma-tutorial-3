@@ -4,7 +4,7 @@ import { RequestLoanForm } from "../components/RequestLoanForm/RequestLoanForm";
 
 export default class Open extends Component {
     render() {
-        const { isAwaitingBlockchain } = this.props;
+        const { disableForm } = this.props;
         const { createDebtOrder } = this.props;
 
         return (
@@ -15,7 +15,7 @@ export default class Open extends Component {
 
                 <RequestLoanForm
                     createDebtOrder={createDebtOrder}
-                    isAwaitingBlockchain={isAwaitingBlockchain}
+                    disableForm={disableForm}
                 />
             </div>
         );

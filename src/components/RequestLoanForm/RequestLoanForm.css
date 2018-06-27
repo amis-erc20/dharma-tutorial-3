@@ -3,11 +3,11 @@
 }
 
 .request-form-input[disabled],
-.request-form-button[disabled] {
+.request-form-submit[disabled] {
     background-color: #eee;
 }
 
-.request-form-button[disabled] {
+.request-form-submit[disabled] {
     color: #333;
     border: 1px solid #333;
     cursor: default;

@@ -40,33 +40,44 @@ export default class App extends Component {
 
         const debtorAddressString = accounts[0];
 
-        const order = await DebtOrder.create(dharma, {
-            principalAmount: principal,
-            principalToken: "WETH",
-            collateralAmount: collateral,
-            collateralToken: "REP",
-            interestRate: interestRate,
-            termDuration: termLength,
-            termUnit: "months",
-            debtorAddress: debtorAddressString,
-            expiresInDuration: expiration,
-            expiresInUnit: "weeks"
-        });
+        try {
+            const order = await DebtOrder.create(dharma, {
+                principalAmount: principal,
+                principalToken: "WETH",
+                collateralAmount: collateral,
+                collateralToken: "REP",
+                interestRate: interestRate,
+                termDuration: termLength,
+                termUnit: "months",
+                debtorAddress: debtorAddressString,
+                expiresInDuration: expiration,
+                expiresInUnit: "weeks"
+            });
 
-        await order.allowCollateralTransfer();
+            await order.allowCollateralTransfer();
 
-        this.setState({
-            isAwaitingBlockchain: false,
-            debtOrder: order
-        });
+            this.setState({
+                isAwaitingBlockchain: false,
+                debtOrder: order
+            });
+        } catch(e) {
+            console.error(e);
+
+            this.setState({
+                isAwaitingBlockchain: false,
+                debtOrder: null,
+            });
+        }
     }
 
     render() {
-        const { debtOrder } = this.state;
+        const { debtOrder, isAwaitingBlockchain } = this.state;
+
+        const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
         return (
             <div className="App">
-                <Open dharma={dharma} debtOrder={debtOrder} createDebtOrder={this.createDebtOrder}/>
+                <Open disableForm={disableOpenForm} dharma={dharma} debtOrder={debtOrder} createDebtOrder={this.createDebtOrder}/>
 
                 <Fill debtOrder={debtOrder} />
             </div>

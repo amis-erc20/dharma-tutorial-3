@@ -19,12 +19,17 @@ export class FillLoan extends Component {
     }
 
     render() {
-        const { debtOrder } = this.props;
+        const { disabled } = this.props;
 
         return (
             <form className="request-form" onSubmit={this.handleFillLoan}>
                 <div className="request-form-group">
-                    <input type="submit" value="Fill" className="request-form-submit" disabled={!debtOrder} />
+                    <input
+                        type="submit"
+                        value="Fill"
+                        className="request-form-submit"
+                        disabled={disabled}
+                    />
                 </div>
             </form>
         );
