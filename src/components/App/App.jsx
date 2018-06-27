@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Dharma from "@dharmaprotocol/dharma.js";
 
 import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
+import { CreditorForm } from "../CreditorForm/CreditorForm";
 
 import "./App.css";
 
@@ -53,15 +54,16 @@ export default class App extends Component {
             expiresInUnit: "weeks"
         });
 
-        console.log(order.serialize());
+        await order.allowCollateralTransfer();
 
         this.setState({
-            isAwaitingBlockchain: false
+            isAwaitingBlockchain: false,
+            debtOrder: order
         });
     }
 
     render() {
-        const { isAwaitingBlockchain } = this.state;
+        const { isAwaitingBlockchain, debtOrder } = this.state;
 
         return (
             <div className="App">
@@ -70,6 +72,7 @@ export default class App extends Component {
                 </header>
 
                 <RequestLoanForm createDebtOrder={this.createDebtOrder} isAwaitingBlockchain={isAwaitingBlockchain} />
+                <CreditorForm debtOrder={debtOrder} />
             </div>
         );
     }
