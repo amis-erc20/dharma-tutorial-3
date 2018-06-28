@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 
-import {AllowPrincipalTransfer} from "../components/CreditorForm/AllowPrincipalTransfer";
-import {FillLoan} from "../components/CreditorForm/FillLoan";
+import { AllowPrincipalTransfer } from "../components/CreditorForm/AllowPrincipalTransfer";
+import { FillLoan } from "../components/CreditorForm/FillLoan";
 
 export default class Fill extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            hasGrantedTransfer: false,
+            hasGrantedTransfer: false
         };
 
         this.handleAllowPrincipalTransfer = this.handleAllowPrincipalTransfer.bind(this);
     }
 
     async handleAllowPrincipalTransfer(event) {
-        console.log("About to allow principal transfer...");
-
         event.preventDefault();
 
         const { debtOrder } = this.props;
@@ -24,12 +22,10 @@ export default class Fill extends Component {
         await debtOrder.allowPrincipalTransfer();
 
         this.setState({ hasGrantedTransfer: true });
-
-        console.log("Completed allowance request!");
     }
 
     render() {
-        const { debtOrder } = this.props;
+        const { debtOrder, updateBlockchainStatus } = this.props;
         const { hasGrantedTransfer } = this.state;
 
         const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
@@ -46,7 +42,11 @@ export default class Fill extends Component {
                     disabled={disableAllowTransfer}
                 />
 
-                <FillLoan debtOrder={debtOrder} disabled={!hasGrantedTransfer} />
+                <FillLoan
+                    debtOrder={debtOrder}
+                    disabled={!hasGrantedTransfer}
+                    updateBlockchainStatus={updateBlockchainStatus}
+                />
             </div>
         );
     }

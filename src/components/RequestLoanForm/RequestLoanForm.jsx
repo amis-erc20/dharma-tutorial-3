@@ -14,7 +14,7 @@ export class RequestLoanForm extends Component {
             collateral: 0,
             interestRate: 0,
             expiration: 0,
-            termLength: 0,
+            termLength: 0
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,10 +31,10 @@ export class RequestLoanForm extends Component {
         });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
-        this.props.createDebtOrder(this.state);
+        await this.props.createDebtOrder(this.state);
     }
 
     render() {

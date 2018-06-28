@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import Dharma from "@dharmaprotocol/dharma.js";
 
+// Constants
+import { creditorAddress, debtorAddress } from "../../constants";
+
 // Tutorials
 import Open from "../../tutorials/Open";
 import Fill from "../../tutorials/Fill";
+
+// BlockchainStatus
+import BlockchainStatus from "../BlockchainStatus/BlockchainStatus";
 
 // Instantiate a new instance of Dharma, passing in the host of the local blockchain.
 const dharma = new Dharma("http://localhost:8545");
@@ -13,10 +19,41 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            isAwaitingBlockchain: false
+            isAwaitingBlockchain: false,
+            blockchainStatus: {}
         };
 
         this.createDebtOrder = this.createDebtOrder.bind(this);
+        this.updateBlockchainStatus = this.updateBlockchainStatus.bind(this);
+    }
+
+    async componentDidMount() {
+        this.updateBlockchainStatus();
+    }
+
+    async updateBlockchainStatus() {
+        const repAddress = await dharma.contracts.getTokenAddressBySymbolAsync("REP");
+        const wethAddress = await dharma.contracts.getTokenAddressBySymbolAsync("WETH");
+
+        const debtorREP = await dharma.token.getBalanceAsync(repAddress, debtorAddress);
+        const debtorWETH = await dharma.token.getBalanceAsync(wethAddress, debtorAddress);
+
+        const creditorREP = await dharma.token.getBalanceAsync(repAddress, creditorAddress);
+        const creditorWETH = await dharma.token.getBalanceAsync(wethAddress, creditorAddress);
+
+        // const collateralizerREP = await dharma.token.getBalanceAsync(repAddress, collateralizerAddress);
+        // const collateralizerWETH = await dharma.token.getBalanceAsync(wethAddress, collateralizerAddress);
+
+        this.setState({
+            blockchainStatus: {
+                debtorREP: debtorREP.toNumber(),
+                debtorWETH: debtorWETH.toNumber(),
+                creditorREP: creditorREP.toNumber(),
+                creditorWETH: creditorWETH.toNumber(),
+                collateralizerREP: 11,
+                collateralizerWETH: 14
+            }
+        });
     }
 
     async createDebtOrder(formData) {
@@ -60,26 +97,33 @@ export default class App extends Component {
                 isAwaitingBlockchain: false,
                 debtOrder: order
             });
-        } catch(e) {
+        } catch (e) {
             console.error(e);
 
             this.setState({
                 isAwaitingBlockchain: false,
-                debtOrder: null,
+                debtOrder: null
             });
         }
     }
 
     render() {
-        const { debtOrder, isAwaitingBlockchain } = this.state;
+        const { blockchainStatus, debtOrder, isAwaitingBlockchain } = this.state;
 
         const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
         return (
             <div className="App">
-                <Open disableForm={disableOpenForm} dharma={dharma} debtOrder={debtOrder} createDebtOrder={this.createDebtOrder}/>
+                <BlockchainStatus blockchainStatus={blockchainStatus} />
 
-                <Fill debtOrder={debtOrder} />
+                <Open
+                    disableForm={disableOpenForm}
+                    dharma={dharma}
+                    debtOrder={debtOrder}
+                    createDebtOrder={this.createDebtOrder}
+                />
+
+                <Fill debtOrder={debtOrder} updateBlockchainStatus={this.updateBlockchainStatus} />
             </div>
         );
     }

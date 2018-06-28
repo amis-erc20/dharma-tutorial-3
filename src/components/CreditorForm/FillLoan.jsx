@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { creditorAddress } from "../../constants";
+
 export class FillLoan extends Component {
     constructor(props) {
         super(props);
@@ -10,12 +12,10 @@ export class FillLoan extends Component {
     async handleFillLoan(event) {
         event.preventDefault();
 
-        const { debtOrder } = this.props;
-
-        const creditorAddress = "0xd2f45e02ab7b190ac9a87b743eab4c8f2ed0e491";
+        const { debtOrder, updateBlockchainStatus } = this.props;
 
         await debtOrder.fillAsCreditor(creditorAddress);
-        console.log("loan filled");
+        await updateBlockchainStatus();
     }
 
     render() {
@@ -24,12 +24,7 @@ export class FillLoan extends Component {
         return (
             <form className="request-form" onSubmit={this.handleFillLoan}>
                 <div className="request-form-group">
-                    <input
-                        type="submit"
-                        value="Fill"
-                        className="request-form-submit"
-                        disabled={disabled}
-                    />
+                    <input type="submit" value="Fill" className="request-form-submit" disabled={disabled} />
                 </div>
             </form>
         );
