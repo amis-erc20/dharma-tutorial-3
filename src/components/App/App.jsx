@@ -35,6 +35,8 @@ export default class App extends Component {
     }
 
     async updateBlockchainStatus() {
+        const { debtOrder } = this.state;
+
         const repAddress = await dharma.contracts.getTokenAddressBySymbolAsync("REP");
         const wethAddress = await dharma.contracts.getTokenAddressBySymbolAsync("WETH");
 
@@ -44,17 +46,18 @@ export default class App extends Component {
         const creditorREP = await dharma.token.getBalanceAsync(repAddress, creditorAddress);
         const creditorWETH = await dharma.token.getBalanceAsync(wethAddress, creditorAddress);
 
-        // const collateralizerREP = await dharma.token.getBalanceAsync(repAddress, collateralizerAddress);
-        // const collateralizerWETH = await dharma.token.getBalanceAsync(wethAddress, collateralizerAddress);
+        const collateralizerREP = debtOrder ? await debtOrder.getCurrentCollateralAmount() : 0;
+        // WETH never gets collateralized in this example.
+        const collateralizerWETH = 0;
 
         this.setState({
             balances: {
-                debtorREP: debtorREP.toNumber(),
-                debtorWETH: debtorWETH.toNumber(),
-                creditorREP: creditorREP.toNumber(),
-                creditorWETH: creditorWETH.toNumber(),
-                collateralizerREP: 11,
-                collateralizerWETH: 14
+                debtorREP: debtorREP.div(10**18).toNumber().toLocaleString(),
+                debtorWETH: debtorWETH.div(10**18).toNumber().toLocaleString(),
+                creditorREP: creditorREP.div(10**18).toNumber().toLocaleString(),
+                creditorWETH: creditorWETH.div(10**18).toNumber().toLocaleString(),
+                collateralizerREP,
+                collateralizerWETH,
             }
         });
     }
