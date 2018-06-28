@@ -9,7 +9,10 @@ import Open from "../../tutorials/Open";
 import Fill from "../../tutorials/Fill";
 
 // BlockchainStatus
-import BlockchainStatus from "../BlockchainStatus/BlockchainStatus";
+import Balances from "../Balances/Balances";
+import Header from "../Header/Header";
+import Nav from "../Nav/Nav";
+import LoanSummary from "../LoanSummary/LoanSummary";
 
 // Instantiate a new instance of Dharma, passing in the host of the local blockchain.
 const dharma = new Dharma("http://localhost:8545");
@@ -20,7 +23,7 @@ export default class App extends Component {
 
         this.state = {
             isAwaitingBlockchain: false,
-            blockchainStatus: {}
+            balances: {}
         };
 
         this.createDebtOrder = this.createDebtOrder.bind(this);
@@ -45,7 +48,7 @@ export default class App extends Component {
         // const collateralizerWETH = await dharma.token.getBalanceAsync(wethAddress, collateralizerAddress);
 
         this.setState({
-            blockchainStatus: {
+            balances: {
                 debtorREP: debtorREP.toNumber(),
                 debtorWETH: debtorWETH.toNumber(),
                 creditorREP: creditorREP.toNumber(),
@@ -108,22 +111,40 @@ export default class App extends Component {
     }
 
     render() {
-        const { blockchainStatus, debtOrder, isAwaitingBlockchain } = this.state;
+        const { balances, debtOrder, isAwaitingBlockchain } = this.state;
 
         const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
         return (
             <div className="App">
-                <BlockchainStatus blockchainStatus={blockchainStatus} />
+                <Header/>
 
-                <Open
-                    disableForm={disableOpenForm}
-                    dharma={dharma}
-                    debtOrder={debtOrder}
-                    createDebtOrder={this.createDebtOrder}
-                />
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-sm-2">
+                            <Nav/>
+                        </div>
 
-                <Fill debtOrder={debtOrder} updateBlockchainStatus={this.updateBlockchainStatus} />
+                        <div className="col-sm-7">
+                            <Open
+                                disableForm={disableOpenForm}
+                                dharma={dharma}
+                                debtOrder={debtOrder}
+                                createDebtOrder={this.createDebtOrder}
+                            />
+
+                            <Fill debtOrder={debtOrder} updateBlockchainStatus={this.updateBlockchainStatus} />
+                        </div>
+
+                        <div className="col-sm-3">
+                            <div className="Summary">
+                                <LoanSummary debtOrder={debtOrder} />
+
+                                <Balances balances={balances} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

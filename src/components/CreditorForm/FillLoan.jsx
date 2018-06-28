@@ -23,8 +23,8 @@ export class FillLoan extends Component {
 
         return (
             <form className="request-form" onSubmit={this.handleFillLoan}>
-                <div className="request-form-group">
-                    <input type="submit" value="Fill" className="request-form-submit" disabled={disabled} />
+                <div className="form-group">
+                    <input type="submit" value="Fill" className="btn btn-primary request-form-submit" disabled={disabled} />
                 </div>
             </form>
         );

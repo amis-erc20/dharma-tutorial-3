@@ -8,7 +8,7 @@ export default class RequestLoanFormSubmit extends Component {
 
         return (
             <div className="request-form-group">
-                <input type="submit" value="Submit" className="request-form-submit" disabled={disabled} />
+                <input type="submit" value="Submit" className="btn btn-primary request-form-submit" disabled={disabled} />
             </div>
         );
     }

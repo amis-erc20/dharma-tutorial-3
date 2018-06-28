@@ -6,13 +6,11 @@ export class AllowPrincipalTransfer extends Component {
 
         return (
             <form className="request-form" onSubmit={handleAllowPrincipalTransfer}>
-                <p>Grant...</p>
-
-                <div className="request-form-group">
+                <div className="form-group">
                     <input
                         type="submit"
                         value="Allow Principal Transfer"
-                        className="request-form-submit"
+                        className="btn btn-primary request-form-submit"
                         disabled={disabled}
                     />
                 </div>
