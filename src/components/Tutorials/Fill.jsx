@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import { AllowPrincipalTransfer } from "../components/CreditorForm/AllowPrincipalTransfer";
-import { FillLoan } from "../components/CreditorForm/FillLoan";
+import { AllowPrincipalTransfer } from "../CreditorForm/AllowPrincipalTransfer";
+import { FillLoan } from "../CreditorForm/FillLoan";
 
 export default class Fill extends Component {
     constructor(props) {

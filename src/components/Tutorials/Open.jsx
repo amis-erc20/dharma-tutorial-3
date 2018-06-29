@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { RequestLoanForm } from "../components/RequestLoanForm/RequestLoanForm";
+import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
 export default class Open extends Component {
     render() {

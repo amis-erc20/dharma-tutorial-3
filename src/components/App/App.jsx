@@ -4,15 +4,12 @@ import Dharma from "@dharmaprotocol/dharma.js";
 // Constants
 import { creditorAddress, debtorAddress } from "../../constants";
 
-// Tutorials
-import Open from "../../tutorials/Open";
-import Fill from "../../tutorials/Fill";
-
 // BlockchainStatus
 import Balances from "../Balances/Balances";
 import Header from "../Header/Header";
 import Nav from "../Nav/Nav";
 import LoanSummary from "../LoanSummary/LoanSummary";
+import Tutorials from "../Tutorials/Tutorials";
 
 // Instantiate a new instance of Dharma, passing in the host of the local blockchain.
 const dharma = new Dharma("http://localhost:8545");
@@ -116,8 +113,6 @@ export default class App extends Component {
     render() {
         const { balances, debtOrder, isAwaitingBlockchain } = this.state;
 
-        const disableOpenForm = isAwaitingBlockchain || debtOrder;
-
         return (
             <div className="App">
                 <Header/>
@@ -129,14 +124,13 @@ export default class App extends Component {
                         </div>
 
                         <div className="col-sm-7">
-                            <Open
-                                disableForm={disableOpenForm}
-                                dharma={dharma}
-                                debtOrder={debtOrder}
+                            <Tutorials
                                 createDebtOrder={this.createDebtOrder}
+                                debtOrder={debtOrder}
+                                dharma={dharma}
+                                isAwaitingBlockchain={isAwaitingBlockchain}
+                                updateBlockchainStatus={this.updateBlockchainStatus}
                             />
-
-                            <Fill debtOrder={debtOrder} updateBlockchainStatus={this.updateBlockchainStatus} />
                         </div>
 
                         <div className="col-sm-3">
