@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { AllowPrincipalTransfer } from "../CreditorForm/AllowPrincipalTransfer";
 import { FillLoan } from "../CreditorForm/FillLoan";
 
+import { creditorAddress } from "../../constants";
+
 export default class Fill extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +21,13 @@ export default class Fill extends Component {
 
         const { debtOrder } = this.props;
 
-        await debtOrder.allowPrincipalTransfer();
+        /*
+         * Step 4:
+         * Similar to how the borrower needed to authorize the transfer of the collateral,
+         * the lender will also need to authorize the transfer of the principal:
+         */
+
+        // your code here
 
         this.setState({ hasGrantedTransfer: true });
     }

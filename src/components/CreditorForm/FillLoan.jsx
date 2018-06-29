@@ -14,7 +14,14 @@ export class FillLoan extends Component {
 
         const { debtOrder, updateBlockchainStatus } = this.props;
 
-        await debtOrder.fillAsCreditor(creditorAddress);
+        /*
+         * Step 5:
+         * With the principal and collateral permissions enabled, the last step
+         * is to actually call fill on the loan order:
+         */
+
+        // your code here
+
         await updateBlockchainStatus();
     }
 
@@ -24,7 +31,12 @@ export class FillLoan extends Component {
         return (
             <form className="request-form" onSubmit={this.handleFillLoan}>
                 <div className="form-group">
-                    <input type="submit" value="Fill" className="btn btn-primary request-form-submit" disabled={disabled} />
+                    <input
+                        type="submit"
+                        value="Fill"
+                        className="btn btn-primary request-form-submit"
+                        disabled={disabled}
+                    />
                 </div>
             </form>
         );

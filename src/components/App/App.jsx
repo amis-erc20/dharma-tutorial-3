@@ -93,7 +93,7 @@ export default class App extends Component {
         const debtorAddressString = accounts[0];
 
         try {
-            const order = await DebtOrder.create(dharma, {
+            const debtOrder = await DebtOrder.create(dharma, {
                 principalAmount: principal,
                 principalToken: "WETH",
                 collateralAmount: collateral,
@@ -106,11 +106,21 @@ export default class App extends Component {
                 expiresInUnit: "weeks"
             });
 
-            await order.allowCollateralTransfer();
+            /*
+             * Step 2:
+             * In the first part of our tutorial, we had you create a web form that allowed users to
+             * create a Dharma Debt Order.
+             *
+             * To prepare this debt order to be filled, there’s one more step to complete:
+             *
+             * Allow the collateral to be transferred from the borrower to the Dharma Protocol smart contract.
+             */
+
+            // your code here
 
             this.setState({
                 isAwaitingBlockchain: false,
-                debtOrder: order
+                debtOrder
             });
         } catch (e) {
             console.error(e);
