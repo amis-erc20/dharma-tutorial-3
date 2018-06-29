@@ -1,6 +1,5 @@
-# Request Loan Starter Kit for Dharma Protocol
+# Dharma Tutorial 2
 
-This repo contains starter code for creating a dapp (decentralized application)
-using Dharma Protocol as the backend and React.js as the frontend framework.
+This repo contains the starter code for the [second tutorial]() in the series "How To Build a dApp in 5 minutes".
 
-![Form screenshot](/public/screenshots/form-screenshot.png?raw=true "Form screenshot")
+![Fill a loan](/public/screenshots/banner.png)
