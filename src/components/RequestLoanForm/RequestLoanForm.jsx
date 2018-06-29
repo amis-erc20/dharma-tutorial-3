@@ -14,7 +14,7 @@ export class RequestLoanForm extends Component {
             collateral: 0,
             interestRate: 0,
             expiration: 0,
-            termLength: 0,
+            termLength: 0
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,14 +31,14 @@ export class RequestLoanForm extends Component {
         });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
-        this.props.createDebtOrder(this.state);
+        await this.props.createDebtOrder(this.state);
     }
 
     render() {
-        const { isAwaitingBlockchain } = this.props;
+        const { disableForm } = this.props;
         const { principal, collateral, expiration, termLength, interestRate } = this.state;
 
         return (
@@ -47,7 +47,7 @@ export class RequestLoanForm extends Component {
                     label="Principal Amount (WETH)"
                     name="principal"
                     value={principal}
-                    disabled={isAwaitingBlockchain}
+                    disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />
 
@@ -55,7 +55,7 @@ export class RequestLoanForm extends Component {
                     label="Collateral Amount (REP)"
                     name="collateral"
                     value={collateral}
-                    disabled={isAwaitingBlockchain}
+                    disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />
 
@@ -63,7 +63,7 @@ export class RequestLoanForm extends Component {
                     label="Interest Rate (as a %)"
                     name="interestRate"
                     value={interestRate}
-                    disabled={isAwaitingBlockchain}
+                    disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />
 
@@ -71,7 +71,7 @@ export class RequestLoanForm extends Component {
                     label="Term Length (months)"
                     name="termLength"
                     value={termLength}
-                    disabled={isAwaitingBlockchain}
+                    disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />
 
@@ -79,11 +79,11 @@ export class RequestLoanForm extends Component {
                     label="Expiration (weeks)"
                     name="expiration"
                     value={expiration}
-                    disabled={isAwaitingBlockchain}
+                    disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />
 
-                <RequestLoanFormSubmit disabled={isAwaitingBlockchain} />
+                <RequestLoanFormSubmit disabled={disableForm} />
             </form>
         );
     }
