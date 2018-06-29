@@ -11,14 +11,15 @@ export default class Tutorials extends Component {
         const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
         return (
-            <div className="Tutorials">
+            <div>
                 <Open
+                    className="Tutorial"
                     disableForm={disableOpenForm}
                     dharma={dharma}
                     debtOrder={debtOrder}
                     createDebtOrder={createDebtOrder}
                 />
-                <Fill debtOrder={debtOrder} updateBlockchainStatus={updateBlockchainStatus} />
+                <Fill className="Tutorial" debtOrder={debtOrder} updateBlockchainStatus={updateBlockchainStatus} />
             </div>
         );
     }

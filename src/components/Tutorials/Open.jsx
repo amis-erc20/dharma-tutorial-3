@@ -7,7 +7,7 @@ export default class Open extends Component {
         const { createDebtOrder, disableForm } = this.props;
 
         return (
-            <div className="OpenTutorial container" id="open-loan">
+            <div className="OpenTutorial container Tutorial" id="open-loan">
                 <header className="App-header">
                     <h3 className="App-title">Request a Loan on Dharma</h3>
                 </header>

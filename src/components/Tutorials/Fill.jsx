@@ -31,7 +31,7 @@ export default class Fill extends Component {
         const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
 
         return (
-            <div className="FillTutorial container" id="fill-loan">
+            <div className="FillTutorial container Tutorial" id="fill-loan">
                 <header className="App-header">
                     <h3 className="App-title">Fill a Loan on Dharma</h3>
                 </header>
