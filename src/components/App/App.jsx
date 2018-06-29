@@ -5,11 +5,11 @@ import Dharma from "@dharmaprotocol/dharma.js";
 import { creditorAddress, debtorAddress } from "../../constants";
 
 // BlockchainStatus
-import Balances from "../Balances/Balances";
 import Header from "../Header/Header";
 import Nav from "../Nav/Nav";
-import LoanSummary from "../LoanSummary/LoanSummary";
+
 import Tutorials from "../Tutorials/Tutorials";
+import TutorialStatus from "../TutorialStatus/TutorialStatus";
 
 // Instantiate a new instance of Dharma, passing in the host of the local blockchain.
 const dharma = new Dharma("http://localhost:8545");
@@ -49,12 +49,24 @@ export default class App extends Component {
 
         this.setState({
             balances: {
-                debtorREP: debtorREP.div(10**18).toNumber().toLocaleString(),
-                debtorWETH: debtorWETH.div(10**18).toNumber().toLocaleString(),
-                creditorREP: creditorREP.div(10**18).toNumber().toLocaleString(),
-                creditorWETH: creditorWETH.div(10**18).toNumber().toLocaleString(),
+                debtorREP: debtorREP
+                    .div(10 ** 18)
+                    .toNumber()
+                    .toLocaleString(),
+                debtorWETH: debtorWETH
+                    .div(10 ** 18)
+                    .toNumber()
+                    .toLocaleString(),
+                creditorREP: creditorREP
+                    .div(10 ** 18)
+                    .toNumber()
+                    .toLocaleString(),
+                creditorWETH: creditorWETH
+                    .div(10 ** 18)
+                    .toNumber()
+                    .toLocaleString(),
                 collateralizerREP,
-                collateralizerWETH,
+                collateralizerWETH
             }
         });
     }
@@ -115,12 +127,12 @@ export default class App extends Component {
 
         return (
             <div className="App">
-                <Header/>
+                <Header />
 
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-2">
-                            <Nav/>
+                            <Nav />
                         </div>
 
                         <div className="col-sm-7">
@@ -134,11 +146,7 @@ export default class App extends Component {
                         </div>
 
                         <div className="col-sm-3">
-                            <div className="Summary">
-                                <LoanSummary debtOrder={debtOrder} />
-
-                                <Balances balances={balances} />
-                            </div>
+                            <TutorialStatus balances={balances} debtOrder={debtOrder} />
                         </div>
                     </div>
                 </div>
