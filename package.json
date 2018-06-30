@@ -8,7 +8,11 @@
         "react-dom": "^16.4.1",
         "react-scripts": "1.1.4"
     },
+    "devDependencies": {
+        "dharma-chain": "1.0.5"
+    },
     "scripts": {
+        "chain": "dharma-chain",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
