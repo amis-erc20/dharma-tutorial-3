@@ -37,7 +37,7 @@ export default class Balances extends Component {
                             <td>{creditorREP}</td>
                         </tr>
                         <tr>
-                            <th>Collateral</th>
+                            <th>Collateral Smart Contract</th>
                             <td>{collateralizerWETH}</td>
                             <td>{collateralizerREP}</td>
                         </tr>
