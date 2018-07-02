@@ -12,7 +12,7 @@
         "dharma-chain": "1.0.5"
     },
     "scripts": {
-        "chain": "dharma-chain",
+        "blockchain": "dharma-chain",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
