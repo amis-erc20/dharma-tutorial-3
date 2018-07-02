@@ -6,7 +6,6 @@ import { creditorAddress, debtorAddress } from "../../constants";
 
 // BlockchainStatus
 import Header from "../Header/Header";
-import Nav from "../Nav/Nav";
 
 import Tutorials from "../Tutorials/Tutorials";
 import TutorialStatus from "../TutorialStatus/TutorialStatus";
@@ -141,10 +140,6 @@ export default class App extends Component {
 
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-sm-2">
-                            <Nav />
-                        </div>
-
                         <div className="col-sm-7">
                             <Tutorials
                                 createDebtOrder={this.createDebtOrder}
@@ -155,7 +150,7 @@ export default class App extends Component {
                             />
                         </div>
 
-                        <div className="col-sm-3">
+                        <div className="col-sm-5">
                             <TutorialStatus balances={balances} debtOrder={debtOrder} />
                         </div>
                     </div>
