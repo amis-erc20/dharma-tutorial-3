@@ -9,7 +9,6 @@ export default class LoanSummary extends Component {
         this.state = {
             isFilled: false,
             isCreated: false,
-            isExpired: false,
         };
     }
 
@@ -27,13 +26,12 @@ export default class LoanSummary extends Component {
 
     async getLoanSummary(debtOrder) {
         const isFilled = await debtOrder.isFilled();
-        const isExpired = await debtOrder.isExpired();
 
-        return { isFilled, isExpired, isCreated: true };
+        return { isFilled, isCreated: true };
     }
 
     render() {
-        const { isFilled, isExpired, isCreated } = this.state;
+        const { isFilled, isCreated } = this.state;
 
         const successClass = "check text-success";
         const dangerClass = "times text-danger";
@@ -54,12 +52,6 @@ export default class LoanSummary extends Component {
                         <th>Filled</th>
                         <td className="check-box-row">
                             <i className={`summary-check fa fa-${isFilled ? successClass : dangerClass}`}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Expired</th>
-                        <td className="check-box-row">
-                            <i className={`summary-check fa fa-${isExpired ? successClass : dangerClass}`}/>
                         </td>
                     </tr>
                     </tbody>
