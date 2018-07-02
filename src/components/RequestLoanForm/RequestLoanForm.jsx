@@ -13,7 +13,6 @@ export class RequestLoanForm extends Component {
             principal: 0,
             collateral: 0,
             interestRate: 0,
-            expiration: 0,
             termLength: 0
         };
 
@@ -39,7 +38,7 @@ export class RequestLoanForm extends Component {
 
     render() {
         const { disableForm } = this.props;
-        const { principal, collateral, expiration, termLength, interestRate } = this.state;
+        const { principal, collateral, termLength, interestRate } = this.state;
 
         return (
             <form className="request-form" onSubmit={this.handleSubmit}>
@@ -71,14 +70,6 @@ export class RequestLoanForm extends Component {
                     label="Term Length (months)"
                     name="termLength"
                     value={termLength}
-                    disabled={disableForm}
-                    handleInputChange={this.handleInputChange}
-                />
-
-                <RequestLoanFormInput
-                    label="Expiration (weeks)"
-                    name="expiration"
-                    value={expiration}
                     disabled={disableForm}
                     handleInputChange={this.handleInputChange}
                 />

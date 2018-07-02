@@ -77,7 +77,7 @@ export default class App extends Component {
 
         const { DebtOrder } = Dharma.Types;
 
-        const { principal, collateral, expiration, termLength, interestRate } = formData;
+        const { principal, collateral, termLength, interestRate } = formData;
 
         const accounts = await dharma.blockchain.getAccounts();
 
@@ -101,7 +101,7 @@ export default class App extends Component {
                 termDuration: termLength,
                 termUnit: "months",
                 debtorAddress: debtorAddressString,
-                expiresInDuration: expiration,
+                expiresInDuration: 1,
                 expiresInUnit: "weeks"
             });
 
