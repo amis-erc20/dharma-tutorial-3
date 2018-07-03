@@ -21,13 +21,7 @@ export default class Fill extends Component {
 
         const { debtOrder } = this.props;
 
-        /*
-         * Step 4:
-         * Similar to how the borrower needed to authorize the transfer of the collateral,
-         * the lender will also need to authorize the transfer of the principal:
-         */
-
-        // your code here
+        await debtOrder.allowPrincipalTransfer(creditorAddress);
 
         this.setState({ hasGrantedTransfer: true });
     }

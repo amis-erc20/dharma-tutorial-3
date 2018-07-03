@@ -14,13 +14,7 @@ export class FillLoan extends Component {
 
         const { debtOrder, updateBlockchainStatus } = this.props;
 
-        /*
-         * Step 5:
-         * With the principal and collateral permissions enabled, the last step
-         * is to actually call fill on the loan order:
-         */
-
-        // your code here
+        await debtOrder.fill(creditorAddress);
 
         await updateBlockchainStatus();
     }
