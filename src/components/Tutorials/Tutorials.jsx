@@ -34,7 +34,12 @@ export default class Tutorials extends Component {
                     debtOrderFilled={debtOrderFilled}
                     updateBlockchainStatus={updateBlockchainStatus}
                 />
-                <Repay className="Tutorial" debtOrder={debtOrder} debtOrderFilled={debtOrderFilled} />
+                <Repay
+                    className="Tutorial"
+                    debtOrder={debtOrder}
+                    debtOrderFilled={debtOrderFilled}
+                    updateBlockchainStatus={updateBlockchainStatus}
+                />
                 <Collateral
                     className="Tutorial"
                     debtOrder={debtOrder}
