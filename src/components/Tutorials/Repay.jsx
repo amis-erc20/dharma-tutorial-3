@@ -10,11 +10,30 @@ export default class Repay extends Component {
         super(props);
 
         this.state = {
-            hasAllowedRepayments: false
+            hasAllowedRepayments: false,
+            debtOrderFilled: false
         };
 
         this.handleAllowRepayments = this.handleAllowRepayments.bind(this);
         this.handleMakeRepayment = this.handleMakeRepayment.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { debtOrder } = nextProps;
+
+        if (!debtOrder) {
+            return {};
+        }
+
+        this.getLoanSummary(debtOrder).then(data => {
+            this.setState(data);
+        });
+    }
+
+    async getLoanSummary(debtOrder) {
+        const debtOrderFilled = await debtOrder.isFilled();
+
+        return { debtOrderFilled };
     }
 
     async handleAllowRepayments(event) {
@@ -40,8 +59,8 @@ export default class Repay extends Component {
     }
 
     render() {
-        const { debtOrder, debtOrderFilled } = this.props;
-        const { hasAllowedRepayments } = this.state;
+        const { debtOrder } = this.props;
+        const { hasAllowedRepayments, debtOrderFilled } = this.state;
 
         const disableAllowRepayments = !debtOrder || !debtOrderFilled || hasAllowedRepayments;
 

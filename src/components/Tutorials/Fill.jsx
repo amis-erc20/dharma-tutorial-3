@@ -10,11 +10,30 @@ export default class Fill extends Component {
         super(props);
 
         this.state = {
-            hasGrantedTransfer: false
+            hasGrantedTransfer: false,
+            debtOrderFilled: false
         };
 
         this.handleAllowPrincipalTransfer = this.handleAllowPrincipalTransfer.bind(this);
         this.handleFillLoan = this.handleFillLoan.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { debtOrder } = nextProps;
+
+        if (!debtOrder) {
+            return {};
+        }
+
+        this.getLoanSummary(debtOrder).then(data => {
+            this.setState(data);
+        });
+    }
+
+    async getLoanSummary(debtOrder) {
+        const debtOrderFilled = await debtOrder.isFilled();
+
+        return { debtOrderFilled };
     }
 
     async handleAllowPrincipalTransfer(event) {
@@ -38,8 +57,8 @@ export default class Fill extends Component {
     }
 
     render() {
-        const { debtOrder, updateBlockchainStatus, debtOrderFilled } = this.props;
-        const { hasGrantedTransfer } = this.state;
+        const { debtOrder, updateBlockchainStatus } = this.props;
+        const { hasGrantedTransfer, debtOrderFilled } = this.state;
 
         const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
         const disableFill = !hasGrantedTransfer || debtOrderFilled;
