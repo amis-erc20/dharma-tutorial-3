@@ -46,6 +46,8 @@ export default class App extends Component {
         // WETH never gets collateralized in this example.
         const collateralizerWETH = 0;
 
+        const debtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
+
         this.setState({
             balances: {
                 debtorREP: debtorREP
@@ -66,7 +68,8 @@ export default class App extends Component {
                     .toLocaleString(),
                 collateralizerREP,
                 collateralizerWETH
-            }
+            },
+            debtOrderFilled
         });
     }
 
@@ -110,7 +113,7 @@ export default class App extends Component {
     }
 
     render() {
-        const { balances, debtOrder, isAwaitingBlockchain } = this.state;
+        const { balances, debtOrder, debtOrderFilled, isAwaitingBlockchain } = this.state;
 
         return (
             <div className="App">
