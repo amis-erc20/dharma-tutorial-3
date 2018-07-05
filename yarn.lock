@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@dharmaprotocol/contracts@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/contracts/-/contracts-0.1.1.tgz#e15b04745662ed6c4d5f71d8b95f61c362adcec0"
+"@dharmaprotocol/contracts@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/contracts/-/contracts-0.1.2.tgz#6cf9906b3c29459141a7b099763248c44a99ad1c"
   dependencies:
     zeppelin-solidity "1.8.0"
 
-"@dharmaprotocol/dharma.js@0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.9.tgz#47ead6422f1dd34e6feaccabbda1a920eb4e4e1e"
+"@dharmaprotocol/dharma.js@0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.11.tgz#b978cc5d126eb7c0e8734007b2714bc58d0c0a05"
   dependencies:
-    "@dharmaprotocol/contracts" "0.1.1"
+    "@dharmaprotocol/contracts" "0.1.2"
     "@types/lodash" "^4.14.104"
     abi-decoder "https://github.com/dharmaprotocol/abi-decoder"
     bignumber.js "^5.0.0"
@@ -53,9 +53,9 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-"abi-decoder@https://github.com/dharmaprotocol/abi-decoder":
+"abi-decoder@git+https://github.com/dharmaprotocol/abi-decoder.git":
   version "1.1.0"
-  resolved "https://github.com/dharmaprotocol/abi-decoder#9448e51a134633673ccbb07a3df0ed2b0c47ab62"
+  resolved "git+https://github.com/dharmaprotocol/abi-decoder.git#9448e51a134633673ccbb07a3df0ed2b0c47ab62"
   dependencies:
     babel-core "^6.23.1"
     babel-loader "^6.3.2"
