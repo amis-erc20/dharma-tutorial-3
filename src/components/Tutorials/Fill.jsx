@@ -10,7 +10,7 @@ export default class Fill extends Component {
 
         this.state = {
             hasGrantedTransfer: false,
-            debtOrderFilled: false
+            isDebtOrderFilled: false
         };
 
         this.handleAllowPrincipalTransfer = this.handleAllowPrincipalTransfer.bind(this);
@@ -30,9 +30,9 @@ export default class Fill extends Component {
     }
 
     async getLoanSummary(debtOrder) {
-        const debtOrderFilled = await debtOrder.isFilled();
+        const isDebtOrderFilled = await debtOrder.isFilled();
 
-        return { debtOrderFilled };
+        return { isDebtOrderFilled };
     }
 
     async handleAllowPrincipalTransfer(event) {
@@ -57,10 +57,10 @@ export default class Fill extends Component {
 
     render() {
         const { debtOrder } = this.props;
-        const { hasGrantedTransfer, debtOrderFilled } = this.state;
+        const { hasGrantedTransfer, isDebtOrderFilled } = this.state;
 
         const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
-        const disableFill = !hasGrantedTransfer || debtOrderFilled;
+        const disableFill = !hasGrantedTransfer || isDebtOrderFilled;
 
         return (
             <div className="FillTutorial container Tutorial" id="fill-loan">

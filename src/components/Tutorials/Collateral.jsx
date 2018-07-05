@@ -7,7 +7,7 @@ export default class Collateral extends Component {
         super(props);
 
         this.state = {
-            collateralReturnable: false
+            isCollateralReturnable: false
         };
 
         this.handleReturnCollateral = this.handleReturnCollateral.bind(this);
@@ -26,9 +26,9 @@ export default class Collateral extends Component {
     }
 
     async getLoanSummary(debtOrder) {
-        const collateralReturnable = await debtOrder.isCollateralReturnable();
+        const isCollateralReturnable = await debtOrder.isisCollateralReturnable();
 
-        return { collateralReturnable };
+        return { isCollateralReturnable };
     }
 
     async handleReturnCollateral(event) {
@@ -42,7 +42,7 @@ export default class Collateral extends Component {
     }
 
     render() {
-        const { collateralReturnable } = this.state;
+        const { isCollateralReturnable } = this.state;
 
         return (
             <div className="CollateralTutorial container Tutorial" id="fill-loan">
@@ -51,7 +51,7 @@ export default class Collateral extends Component {
                 </header>
                 <Button
                     label={"Return Collateral"}
-                    disabled={!collateralReturnable}
+                    disabled={!isCollateralReturnable}
                     onClick={this.handleReturnCollateral}
                 />
             </div>
