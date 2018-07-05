@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
-export class FillLoan extends Component {
+export class MakeRepayment extends Component {
     render() {
-        const { disabled, handleFillLoan } = this.props;
+        const { disabled, handleMakeRepayment } = this.props;
 
         return (
-            <form className="request-form" onSubmit={handleFillLoan}>
+            <form className="request-form" onSubmit={handleMakeRepayment}>
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="Fill"
+                        value="Make a Repayment"
                         className="btn btn-primary request-form-submit"
                         disabled={disabled}
                     />
