@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import "./RepaymentSummary.css";
-
 export default class RepaymentSummary extends Component {
     constructor(props) {
         super(props);
@@ -37,9 +35,6 @@ export default class RepaymentSummary extends Component {
 
     render() {
         const { totalAmount, amountRepaid, amountOutstanding, tokenSymbol } = this.state;
-
-        const successClass = "check text-success";
-        const dangerClass = "times text-danger";
 
         return (
             <div>
