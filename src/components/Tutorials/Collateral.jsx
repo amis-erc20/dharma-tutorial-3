@@ -26,7 +26,7 @@ export default class Collateral extends Component {
     }
 
     async getLoanSummary(debtOrder) {
-        const isCollateralReturnable = await debtOrder.isisCollateralReturnable();
+        const isCollateralReturnable = await debtOrder.isCollateralReturnable();
 
         return { isCollateralReturnable };
     }
