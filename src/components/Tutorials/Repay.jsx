@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import { AllowRepayments } from "../Repayment/AllowRepayments";
-import { MakeRepayment } from "../Repayment/MakeRepayment";
+import { Button } from "../Button/Button";
 
 import { debtorAddress } from "../../constants";
 
@@ -55,7 +54,7 @@ export default class Repay extends Component {
 
         // TODO: await txn mined
 
-        updateBlockchainStatus();
+        await updateBlockchainStatus();
     }
 
     render() {
@@ -70,16 +69,16 @@ export default class Repay extends Component {
                     <h3 className="App-title">Make Repayments</h3>
                 </header>
 
-                <AllowRepayments
-                    handleAllowRepayments={this.handleAllowRepayments}
-                    debtOrder={debtOrder}
+                <Button
                     disabled={disableAllowRepayments}
+                    label={"Allow Repayments"}
+                    onClick={this.handleAllowRepayments}
                 />
 
-                <MakeRepayment
-                    debtOrder={debtOrder}
+                <Button
                     disabled={!hasAllowedRepayments}
-                    handleMakeRepayment={this.handleMakeRepayment}
+                    label={"Make a Repayment"}
+                    onClick={this.handleMakeRepayment}
                 />
             </div>
         );
