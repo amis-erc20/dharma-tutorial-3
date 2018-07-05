@@ -10,6 +10,7 @@ export default class Repay extends Component {
 
         this.state = {
             hasAllowedRepayments: false,
+            debtRepaid: false,
             debtOrderFilled: false
         };
 
@@ -31,8 +32,9 @@ export default class Repay extends Component {
 
     async getLoanSummary(debtOrder) {
         const debtOrderFilled = await debtOrder.isFilled();
+        const debtRepaid = await debtOrder.isRepaid();
 
-        return { debtOrderFilled };
+        return { debtRepaid, debtOrderFilled };
     }
 
     async handleAllowRepayments(event) {
@@ -59,9 +61,10 @@ export default class Repay extends Component {
 
     render() {
         const { debtOrder } = this.props;
-        const { hasAllowedRepayments, debtOrderFilled } = this.state;
+        const { hasAllowedRepayments, debtRepaid, debtOrderFilled } = this.state;
 
         const disableAllowRepayments = !debtOrder || !debtOrderFilled || hasAllowedRepayments;
+        const disableMakeRepayment = !hasAllowedRepayments || debtRepaid;
 
         return (
             <div className="RepayTutorial container Tutorial" id="fill-loan">
@@ -75,11 +78,7 @@ export default class Repay extends Component {
                     onClick={this.handleAllowRepayments}
                 />
 
-                <Button
-                    disabled={!hasAllowedRepayments}
-                    label={"Make a Repayment"}
-                    onClick={this.handleMakeRepayment}
-                />
+                <Button disabled={disableMakeRepayment} label={"Make a Repayment"} onClick={this.handleMakeRepayment} />
             </div>
         );
     }
