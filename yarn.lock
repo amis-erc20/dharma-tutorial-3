@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@dharmaprotocol/contracts@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/contracts/-/contracts-0.1.1.tgz#e15b04745662ed6c4d5f71d8b95f61c362adcec0"
+"@dharmaprotocol/contracts@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/contracts/-/contracts-0.1.2.tgz#6cf9906b3c29459141a7b099763248c44a99ad1c"
   dependencies:
     zeppelin-solidity "1.8.0"
 
-"@dharmaprotocol/dharma.js@0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.9.tgz#47ead6422f1dd34e6feaccabbda1a920eb4e4e1e"
+"@dharmaprotocol/dharma.js@0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.12.tgz#9e26d519355c52013efc1547f322b0e20c6aec91"
   dependencies:
-    "@dharmaprotocol/contracts" "0.1.1"
+    "@dharmaprotocol/contracts" "0.1.2"
     "@types/lodash" "^4.14.104"
     abi-decoder "https://github.com/dharmaprotocol/abi-decoder"
     bignumber.js "^5.0.0"
@@ -2222,7 +2222,7 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
-dharma-chain@^1.0.6:
+dharma-chain@1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/dharma-chain/-/dharma-chain-1.0.8.tgz#d14c765399a0749419b044dce84783cd956c9948"
 

@@ -133,7 +133,11 @@ export default class App extends Component {
                         </div>
 
                         <div className="col-sm-5">
-                            <TutorialStatus balances={balances} debtOrder={debtOrder} />
+                            <TutorialStatus
+                                balances={balances}
+                                debtOrder={debtOrder}
+                                debtOrderFilled={debtOrderFilled}
+                            />
                         </div>
                     </div>
                 </div>
