@@ -13,9 +13,9 @@ export default class RepaymentSummary extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { debtOrder } = nextProps;
+        const { debtOrder, debtOrderFilled } = nextProps;
 
-        if (!debtOrder) {
+        if (!debtOrder || !debtOrderFilled) {
             return {};
         }
 
