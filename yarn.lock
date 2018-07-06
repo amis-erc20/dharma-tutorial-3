@@ -8,9 +8,9 @@
   dependencies:
     zeppelin-solidity "1.8.0"
 
-"@dharmaprotocol/dharma.js@0.1.13":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.13.tgz#0cc14aa2d7c692fc0c830e2b3c2ca83abfd146a2"
+"@dharmaprotocol/dharma.js@0.1.14":
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/@dharmaprotocol/dharma.js/-/dharma.js-0.1.14.tgz#89597ba136a0cb1c672b8d67bede3382fd0657cc"
   dependencies:
     "@dharmaprotocol/contracts" "0.1.2"
     "@types/lodash" "^4.14.104"
