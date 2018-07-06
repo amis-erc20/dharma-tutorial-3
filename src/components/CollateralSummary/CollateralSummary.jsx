@@ -1,38 +1,8 @@
 import React, { Component } from "react";
 
 export default class CollateralSummary extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isCollateralWithdrawn: false,
-            isCollateralSeizable: false,
-            isCollateralReturnable: false,
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { debtOrder, isDebtOrderFilled } = nextProps;
-
-        if (!debtOrder || !isDebtOrderFilled) {
-            return {};
-        }
-
-        this.getCollateralSummary(debtOrder).then((data) => {
-            this.setState(data);
-        });
-    }
-
-    async getCollateralSummary(debtOrder) {
-        const isCollateralWithdrawn = await debtOrder.isCollateralWithdrawn();
-        const isCollateralSeizable = await debtOrder.isCollateralSeizable();
-        const isCollateralReturnable = await debtOrder.isCollateralReturnable();
-
-        return { isCollateralWithdrawn, isCollateralSeizable, isCollateralReturnable };
-    }
-
     render() {
-        const { isCollateralWithdrawn, isCollateralSeizable, isCollateralReturnable } = this.state;
+        const { isCollateralWithdrawn, isCollateralSeizable, isCollateralReturnable } = this.props;
 
         const successClass = "check text-success";
         const dangerClass = "times text-danger";

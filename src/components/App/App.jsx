@@ -47,8 +47,11 @@ export default class App extends Component {
         const collateralizerWETH = 0;
 
         const isDebtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
-        const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
         const isDebtOrderRepaid = debtOrder ? await debtOrder.isRepaid() : false;
+
+        const isCollateralWithdrawn = debtOrder ? await debtOrder.isCollateralWithdrawn() : false;
+        const isCollateralSeizable = debtOrder ? await debtOrder.isCollateralSeizable() : false;
+        const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
 
         this.setState({
             balances: {
@@ -73,7 +76,10 @@ export default class App extends Component {
             },
             isDebtOrderFilled,
             isCollateralReturnable,
-            isDebtOrderRepaid
+            isDebtOrderRepaid,
+            isCollateralWithdrawn,
+            isCollateralSeizable,
+            isCollateralReturnable,
         });
     }
 
@@ -120,10 +126,12 @@ export default class App extends Component {
         const {
             balances,
             debtOrder,
-            isCollateralReturnable,
             isDebtOrderFilled,
             isDebtOrderRepaid,
-            isAwaitingBlockchain
+            isAwaitingBlockchain,
+            isCollateralWithdrawn,
+            isCollateralSeizable,
+            isCollateralReturnable
         } = this.state;
 
         return (
@@ -150,6 +158,9 @@ export default class App extends Component {
                                 balances={balances}
                                 debtOrder={debtOrder}
                                 isDebtOrderFilled={isDebtOrderFilled}
+                                isCollateralWithdrawn={isCollateralWithdrawn}
+                                isCollateralSeizable={isCollateralSeizable}
+                                isCollateralReturnable={isCollateralReturnable}
                             />
                         </div>
                     </div>
