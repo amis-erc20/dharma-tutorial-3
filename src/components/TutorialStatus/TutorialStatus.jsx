@@ -13,8 +13,8 @@ export default class TutorialStatus extends Component {
         return (
             <div className="TutorialStatus">
                 <LoanSummary debtOrder={debtOrder} />
-                <RepaymentSummary debtOrder={debtOrder} debtOrderFilled={debtOrderFilled} />
-                <CollateralSummary debtOrder={debtOrder} debtOrderFilled={debtOrderFilled} />
+                <RepaymentSummary debtOrder={debtOrder} isDebtOrderFilled={isDebtOrderFilled} />
+                <CollateralSummary debtOrder={debtOrder} isDebtOrderFilled={isDebtOrderFilled} />
                 <Balances balances={balances} />
             </div>
         );

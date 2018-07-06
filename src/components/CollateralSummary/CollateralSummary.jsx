@@ -12,9 +12,9 @@ export default class CollateralSummary extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { debtOrder, debtOrderFilled } = nextProps;
+        const { debtOrder, isDebtOrderFilled } = nextProps;
 
-        if (!debtOrder || !debtOrderFilled) {
+        if (!debtOrder || !isDebtOrderFilled) {
             return {};
         }
 
