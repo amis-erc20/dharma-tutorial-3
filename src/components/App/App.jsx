@@ -75,7 +75,6 @@ export default class App extends Component {
                 collateralizerWETH
             },
             isDebtOrderFilled,
-            isCollateralReturnable,
             isDebtOrderRepaid,
             isCollateralWithdrawn,
             isCollateralSeizable,
