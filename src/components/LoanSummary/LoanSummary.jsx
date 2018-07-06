@@ -3,35 +3,8 @@ import React, { Component } from "react";
 import "./LoanSummary.css";
 
 export default class LoanSummary extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isFilled: false,
-            isCreated: false,
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { debtOrder } = nextProps;
-
-        if (!debtOrder) {
-            return {};
-        }
-
-        this.getLoanSummary(debtOrder).then((data) => {
-            this.setState(data);
-        });
-    }
-
-    async getLoanSummary(debtOrder) {
-        const isFilled = await debtOrder.isFilled();
-
-        return { isFilled, isCreated: true };
-    }
-
     render() {
-        const { isFilled, isCreated } = this.state;
+        const { isDebtOrderFilled, isCreated } = this.props;
 
         const successClass = "check text-success";
         const dangerClass = "times text-danger";
@@ -51,7 +24,7 @@ export default class LoanSummary extends Component {
                     <tr>
                         <th>Filled</th>
                         <td className="check-box-row">
-                            <i className={`summary-check fa fa-${isFilled ? successClass : dangerClass}`}/>
+                            <i className={`summary-check fa fa-${isDebtOrderFilled ? successClass : dangerClass}`}/>
                         </td>
                     </tr>
                     </tbody>

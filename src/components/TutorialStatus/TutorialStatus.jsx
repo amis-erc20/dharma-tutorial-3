@@ -16,9 +16,11 @@ export default class TutorialStatus extends Component {
                 isCollateralReturnable
         } = this.props;
 
+        const isCreated = debtOrder ? true : false;
+
         return (
             <div className="TutorialStatus">
-                <LoanSummary debtOrder={debtOrder} />
+                <LoanSummary isDebtOrderFilled={isDebtOrderFilled} isCreated={isCreated} />
                 <RepaymentSummary debtOrder={debtOrder} isDebtOrderFilled={isDebtOrderFilled} />
                 <CollateralSummary
                     isCollateralWithdrawn={isCollateralWithdrawn}
