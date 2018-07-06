@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Open from "./Open";
 import Fill from "./Fill";
 import Repay from "./Repay";
+import Collateral from "./Collateral";
 
 import "./Tutorials.css";
 
@@ -10,9 +11,11 @@ export default class Tutorials extends Component {
         const {
             createDebtOrder,
             debtOrder,
-            debtOrderFilled,
             dharma,
             isAwaitingBlockchain,
+            isCollateralReturnable,
+            isDebtOrderFilled,
+            isDebtOrderRepaid,
             updateBlockchainStatus
         } = this.props;
 
@@ -30,13 +33,20 @@ export default class Tutorials extends Component {
                 <Fill
                     className="Tutorial"
                     debtOrder={debtOrder}
-                    debtOrderFilled={debtOrderFilled}
                     updateBlockchainStatus={updateBlockchainStatus}
+                    isDebtOrderFilled={isDebtOrderFilled}
                 />
                 <Repay
                     className="Tutorial"
                     debtOrder={debtOrder}
-                    debtOrderFilled={debtOrderFilled}
+                    updateBlockchainStatus={updateBlockchainStatus}
+                    isDebtOrderFilled={isDebtOrderFilled}
+                    isDebtOrderRepaid={isDebtOrderRepaid}
+                />
+                <Collateral
+                    className="Tutorial"
+                    debtOrder={debtOrder}
+                    isCollateralReturnable={isCollateralReturnable}
                     updateBlockchainStatus={updateBlockchainStatus}
                 />
             </div>
