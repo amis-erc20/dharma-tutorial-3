@@ -6,10 +6,6 @@ export default class Collateral extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isCollateralReturnable: false
-        };
-
         this.handleReturnCollateral = this.handleReturnCollateral.bind(this);
     }
 
