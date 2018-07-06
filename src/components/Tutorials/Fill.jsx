@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import { AllowPrincipalTransfer } from "../CreditorForm/AllowPrincipalTransfer";
-import { FillLoan } from "../CreditorForm/FillLoan";
+import { Button } from "../Button/Button";
 
 import { creditorAddress } from "../../constants";
 
@@ -38,30 +37,23 @@ export default class Fill extends Component {
     }
 
     render() {
-        const { debtOrder, updateBlockchainStatus, debtOrderFilled } = this.props;
+        const { debtOrder, isDebtOrderFilled } = this.props;
         const { hasGrantedTransfer } = this.state;
 
         const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
-        const disableFill = !hasGrantedTransfer || debtOrderFilled;
+        const disableFill = !hasGrantedTransfer || isDebtOrderFilled;
 
         return (
             <div className="FillTutorial container Tutorial" id="fill-loan">
                 <header className="App-header">
                     <h3 className="App-title">Fill a Loan on Dharma</h3>
                 </header>
-
-                <AllowPrincipalTransfer
-                    handleAllowPrincipalTransfer={this.handleAllowPrincipalTransfer}
-                    debtOrder={debtOrder}
+                <Button
                     disabled={disableAllowTransfer}
+                    label={"Allow Principal Transfer"}
+                    onClick={this.handleAllowPrincipalTransfer}
                 />
-
-                <FillLoan
-                    handleFillLoan={this.handleFillLoan}
-                    debtOrder={debtOrder}
-                    disabled={disableFill}
-                    updateBlockchainStatus={updateBlockchainStatus}
-                />
+                <Button disabled={disableFill} label={"Fill Loan Request"} onClick={this.handleFillLoan} />
             </div>
         );
     }

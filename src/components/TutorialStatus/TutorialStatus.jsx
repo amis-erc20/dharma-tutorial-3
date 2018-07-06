@@ -8,7 +8,7 @@ import "./TutorialStatus.css";
 
 export default class TutorialStatus extends Component {
     render() {
-        const { debtOrder, balances, debtOrderFilled } = this.props;
+        const { debtOrder, balances, isDebtOrderFilled } = this.props;
 
         return (
             <div className="TutorialStatus">

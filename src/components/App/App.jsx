@@ -46,7 +46,9 @@ export default class App extends Component {
         // WETH never gets collateralized in this example.
         const collateralizerWETH = 0;
 
-        const debtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
+        const isDebtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
+        const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
+        const isDebtOrderRepaid = debtOrder ? await debtOrder.isRepaid() : false;
 
         this.setState({
             balances: {
@@ -69,7 +71,9 @@ export default class App extends Component {
                 collateralizerREP,
                 collateralizerWETH
             },
-            debtOrderFilled
+            isDebtOrderFilled,
+            isCollateralReturnable,
+            isDebtOrderRepaid
         });
     }
 
@@ -113,7 +117,14 @@ export default class App extends Component {
     }
 
     render() {
-        const { balances, debtOrder, debtOrderFilled, isAwaitingBlockchain } = this.state;
+        const {
+            balances,
+            debtOrder,
+            isCollateralReturnable,
+            isDebtOrderFilled,
+            isDebtOrderRepaid,
+            isAwaitingBlockchain
+        } = this.state;
 
         return (
             <div className="App">
@@ -125,9 +136,11 @@ export default class App extends Component {
                             <Tutorials
                                 createDebtOrder={this.createDebtOrder}
                                 debtOrder={debtOrder}
-                                debtOrderFilled={debtOrderFilled}
                                 dharma={dharma}
                                 isAwaitingBlockchain={isAwaitingBlockchain}
+                                isDebtOrderFilled={isDebtOrderFilled}
+                                isCollateralReturnable={isCollateralReturnable}
+                                isDebtOrderRepaid={isDebtOrderRepaid}
                                 updateBlockchainStatus={this.updateBlockchainStatus}
                             />
                         </div>
@@ -136,7 +149,7 @@ export default class App extends Component {
                             <TutorialStatus
                                 balances={balances}
                                 debtOrder={debtOrder}
-                                debtOrderFilled={debtOrderFilled}
+                                isDebtOrderFilled={isDebtOrderFilled}
                             />
                         </div>
                     </div>
