@@ -47,6 +47,8 @@ export default class App extends Component {
         const collateralizerWETH = 0;
 
         const isDebtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
+        const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
+        const isDebtOrderRepaid = debtOrder ? await debtOrder.isRepaid() : false;
 
         this.setState({
             balances: {
@@ -69,7 +71,9 @@ export default class App extends Component {
                 collateralizerREP,
                 collateralizerWETH
             },
-            isDebtOrderFilled
+            isDebtOrderFilled,
+            isCollateralReturnable,
+            isDebtOrderRepaid
         });
     }
 
@@ -113,7 +117,14 @@ export default class App extends Component {
     }
 
     render() {
-        const { balances, debtOrder, isDebtOrderFilled, isAwaitingBlockchain } = this.state;
+        const {
+            balances,
+            debtOrder,
+            isCollateralReturnable,
+            isDebtOrderFilled,
+            isDebtOrderRepaid,
+            isAwaitingBlockchain
+        } = this.state;
 
         return (
             <div className="App">
@@ -127,6 +138,9 @@ export default class App extends Component {
                                 debtOrder={debtOrder}
                                 dharma={dharma}
                                 isAwaitingBlockchain={isAwaitingBlockchain}
+                                isDebtOrderFilled={isDebtOrderFilled}
+                                isCollateralReturnable={isCollateralReturnable}
+                                isDebtOrderRepaid={isDebtOrderRepaid}
                                 updateBlockchainStatus={this.updateBlockchainStatus}
                             />
                         </div>

@@ -8,7 +8,16 @@ import "./Tutorials.css";
 
 export default class Tutorials extends Component {
     render() {
-        const { createDebtOrder, debtOrder, dharma, isAwaitingBlockchain, updateBlockchainStatus } = this.props;
+        const {
+            createDebtOrder,
+            debtOrder,
+            dharma,
+            isAwaitingBlockchain,
+            isCollateralReturnable,
+            isDebtOrderFilled,
+            isDebtOrderRepaid,
+            updateBlockchainStatus
+        } = this.props;
 
         const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
@@ -21,11 +30,23 @@ export default class Tutorials extends Component {
                     debtOrder={debtOrder}
                     createDebtOrder={createDebtOrder}
                 />
-                <Fill className="Tutorial" debtOrder={debtOrder} updateBlockchainStatus={updateBlockchainStatus} />
-                <Repay className="Tutorial" debtOrder={debtOrder} updateBlockchainStatus={updateBlockchainStatus} />
+                <Fill
+                    className="Tutorial"
+                    debtOrder={debtOrder}
+                    updateBlockchainStatus={updateBlockchainStatus}
+                    isDebtOrderFilled={isDebtOrderFilled}
+                />
+                <Repay
+                    className="Tutorial"
+                    debtOrder={debtOrder}
+                    updateBlockchainStatus={updateBlockchainStatus}
+                    isDebtOrderFilled={isDebtOrderFilled}
+                    isDebtOrderRepaid={isDebtOrderRepaid}
+                />
                 <Collateral
                     className="Tutorial"
                     debtOrder={debtOrder}
+                    isCollateralReturnable={isCollateralReturnable}
                     updateBlockchainStatus={updateBlockchainStatus}
                 />
             </div>

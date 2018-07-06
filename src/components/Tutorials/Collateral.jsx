@@ -13,24 +13,6 @@ export default class Collateral extends Component {
         this.handleReturnCollateral = this.handleReturnCollateral.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { debtOrder } = nextProps;
-
-        if (!debtOrder) {
-            return {};
-        }
-
-        this.getLoanSummary(debtOrder).then(data => {
-            this.setState(data);
-        });
-    }
-
-    async getLoanSummary(debtOrder) {
-        const isCollateralReturnable = await debtOrder.isCollateralReturnable();
-
-        return { isCollateralReturnable };
-    }
-
     async handleReturnCollateral(event) {
         event.preventDefault();
 
@@ -42,7 +24,7 @@ export default class Collateral extends Component {
     }
 
     render() {
-        const { isCollateralReturnable } = this.state;
+        const { isCollateralReturnable } = this.props;
 
         return (
             <div className="CollateralTutorial container Tutorial" id="fill-loan">

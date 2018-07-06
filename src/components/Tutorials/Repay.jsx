@@ -9,32 +9,11 @@ export default class Repay extends Component {
         super(props);
 
         this.state = {
-            hasAllowedRepayments: false,
-            debtRepaid: false,
-            isDebtOrderFilled: false
+            hasAllowedRepayments: false
         };
 
         this.handleAllowRepayments = this.handleAllowRepayments.bind(this);
         this.handleMakeRepayment = this.handleMakeRepayment.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { debtOrder } = nextProps;
-
-        if (!debtOrder) {
-            return {};
-        }
-
-        this.getLoanSummary(debtOrder).then(data => {
-            this.setState(data);
-        });
-    }
-
-    async getLoanSummary(debtOrder) {
-        const isDebtOrderFilled = await debtOrder.isFilled();
-        const debtRepaid = await debtOrder.isRepaid();
-
-        return { debtRepaid, isDebtOrderFilled };
     }
 
     async handleAllowRepayments(event) {
@@ -60,11 +39,11 @@ export default class Repay extends Component {
     }
 
     render() {
-        const { debtOrder } = this.props;
-        const { hasAllowedRepayments, debtRepaid, isDebtOrderFilled } = this.state;
+        const { debtOrder, isDebtOrderFilled, isDebtOrderRepaid } = this.props;
+        const { hasAllowedRepayments } = this.state;
 
         const disableAllowRepayments = !debtOrder || !isDebtOrderFilled || hasAllowedRepayments;
-        const disableMakeRepayment = !hasAllowedRepayments || debtRepaid;
+        const disableMakeRepayment = !hasAllowedRepayments || isDebtOrderRepaid;
 
         return (
             <div className="RepayTutorial container Tutorial" id="fill-loan">
