@@ -53,6 +53,11 @@ export default class App extends Component {
         const isCollateralSeizable = debtOrder ? await debtOrder.isCollateralSeizable() : false;
         const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
 
+        const totalAmount = debtOrder ? await debtOrder.getTotalExpectedRepaymentAmount() : 0;
+        const amountRepaid = debtOrder ? await debtOrder.getRepaidAmount() : 0;
+        const amountOutstanding = debtOrder ? await debtOrder.getOutstandingAmount() : 0;
+        const tokenSymbol = debtOrder ? await debtOrder.getRepaymentTokenSymbol() : "";
+
         this.setState({
             balances: {
                 debtorREP: debtorREP
@@ -75,11 +80,16 @@ export default class App extends Component {
                 collateralizerWETH
             },
             isDebtOrderFilled,
-            isCollateralReturnable,
             isDebtOrderRepaid,
+            // Collateral
             isCollateralWithdrawn,
             isCollateralSeizable,
             isCollateralReturnable,
+            // Repayments
+            totalAmount,
+            amountRepaid,
+            amountOutstanding,
+            tokenSymbol,
         });
     }
 
@@ -129,9 +139,15 @@ export default class App extends Component {
             isDebtOrderFilled,
             isDebtOrderRepaid,
             isAwaitingBlockchain,
+            // Collateral
             isCollateralWithdrawn,
             isCollateralSeizable,
-            isCollateralReturnable
+            isCollateralReturnable,
+            // Repayments
+            totalAmount,
+            amountRepaid,
+            amountOutstanding,
+            tokenSymbol,
         } = this.state;
 
         return (
@@ -161,6 +177,10 @@ export default class App extends Component {
                                 isCollateralWithdrawn={isCollateralWithdrawn}
                                 isCollateralSeizable={isCollateralSeizable}
                                 isCollateralReturnable={isCollateralReturnable}
+                                totalAmount={totalAmount}
+                                amountRepaid={amountRepaid}
+                                amountOutstanding={amountOutstanding}
+                                tokenSymbol={tokenSymbol}
                             />
                         </div>
                     </div>
