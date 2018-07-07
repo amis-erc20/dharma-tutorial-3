@@ -1,40 +1,8 @@
 import React, { Component } from "react";
 
 export default class RepaymentSummary extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            totalAmount: 0,
-            amountRepaid: 0,
-            amountOutstanding: 0,
-            tokenSymbol: "",
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { debtOrder, isDebtOrderFilled } = nextProps;
-
-        if (!debtOrder || !isDebtOrderFilled) {
-            return {};
-        }
-
-        this.getRepaymentSummary(debtOrder).then((data) => {
-            this.setState(data);
-        });
-    }
-
-    async getRepaymentSummary(debtOrder) {
-        const totalAmount = await debtOrder.getTotalExpectedRepaymentAmount();
-        const amountRepaid = await debtOrder.getRepaidAmount();
-        const amountOutstanding = await debtOrder.getOutstandingAmount();
-        const tokenSymbol = await debtOrder.getRepaymentTokenSymbol();
-
-        return { totalAmount, amountRepaid, amountOutstanding, tokenSymbol };
-    }
-
     render() {
-        const { totalAmount, amountRepaid, amountOutstanding, tokenSymbol } = this.state;
+        const { totalAmount, amountRepaid, amountOutstanding, tokenSymbol } = this.props;
 
         return (
             <div>

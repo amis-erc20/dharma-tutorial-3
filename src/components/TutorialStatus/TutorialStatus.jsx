@@ -11,9 +11,15 @@ export default class TutorialStatus extends Component {
         const { debtOrder,
                 balances,
                 isDebtOrderFilled,
+                // Collateral
                 isCollateralWithdrawn,
                 isCollateralSeizable,
-                isCollateralReturnable
+                isCollateralReturnable,
+                // Repayments
+                totalAmount,
+                amountRepaid,
+                amountOutstanding,
+                tokenSymbol,
         } = this.props;
 
         const isCreated = debtOrder ? true : false;
@@ -21,11 +27,17 @@ export default class TutorialStatus extends Component {
         return (
             <div className="TutorialStatus">
                 <LoanSummary isDebtOrderFilled={isDebtOrderFilled} isCreated={isCreated} />
-                <RepaymentSummary debtOrder={debtOrder} isDebtOrderFilled={isDebtOrderFilled} />
+                <RepaymentSummary
+                    totalAmount={totalAmount}
+                    amountRepaid={amountRepaid}
+                    amountOutstanding={amountOutstanding}
+                    tokenSymbol={tokenSymbol}
+                />
                 <CollateralSummary
                     isCollateralWithdrawn={isCollateralWithdrawn}
                     isCollateralSeizable={isCollateralSeizable}
-                    isCollateralReturnable={isCollateralReturnable} />
+                    isCollateralReturnable={isCollateralReturnable}
+                />
                 <Balances balances={balances} />
             </div>
         );
