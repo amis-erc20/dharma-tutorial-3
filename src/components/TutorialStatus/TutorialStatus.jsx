@@ -25,6 +25,7 @@ export default class TutorialStatus extends Component {
 
         return (
             <div className="TutorialStatus">
+                <Balances balances={balances} />
                 <LoanSummary
                     isCreated={isCreated}
                     isFilled={isFilled}
@@ -40,7 +41,6 @@ export default class TutorialStatus extends Component {
                     isCollateralSeizable={isCollateralSeizable}
                     isCollateralReturnable={isCollateralReturnable}
                 />
-                <Balances balances={balances} />
             </div>
         );
     }
