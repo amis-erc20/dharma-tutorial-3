@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Balances from "../Balances/Balances";
-import LoanSummary from "../LoanSummary/LoanSummary";
+import LoanRequestSummary from "../LoanRequestSummary/LoanRequestSummary";
 import RepaymentSummary from "../RepaymentSummary/RepaymentSummary";
 import CollateralSummary from "../CollateralSummary/CollateralSummary"
 
@@ -8,25 +8,28 @@ import "./TutorialStatus.css";
 
 export default class TutorialStatus extends Component {
     render() {
-        const { debtOrder,
-                balances,
-                isDebtOrderFilled,
-                // Collateral
-                isCollateralWithdrawn,
-                isCollateralSeizable,
-                isCollateralReturnable,
-                // Repayments
-                totalAmount,
-                amountRepaid,
-                amountOutstanding,
-                tokenSymbol,
+        const {
+            balances,
+            isCreated,
+            isFilled,
+            // Collateral
+            isCollateralWithdrawn,
+            isCollateralSeizable,
+            isCollateralReturnable,
+            // Repayments
+            totalAmount,
+            amountRepaid,
+            amountOutstanding,
+            tokenSymbol
         } = this.props;
-
-        const isCreated = debtOrder ? true : false;
 
         return (
             <div className="TutorialStatus">
-                <LoanSummary isDebtOrderFilled={isDebtOrderFilled} isCreated={isCreated} />
+                <Balances balances={balances} />
+                <LoanRequestSummary
+                    isCreated={isCreated}
+                    isFilled={isFilled}
+                />
                 <RepaymentSummary
                     totalAmount={totalAmount}
                     amountRepaid={amountRepaid}
@@ -38,7 +41,6 @@ export default class TutorialStatus extends Component {
                     isCollateralSeizable={isCollateralSeizable}
                     isCollateralReturnable={isCollateralReturnable}
                 />
-                <Balances balances={balances} />
             </div>
         );
     }

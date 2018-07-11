@@ -19,19 +19,78 @@ export default class App extends Component {
 
         this.state = {
             isAwaitingBlockchain: false,
-            balances: {}
+            balances: {},
+            isCreated: false,
+            isFilled: false,
+            totalAmount: 0,
+            amountRepaid: 0,
+            amountOutstanding: 0,
+            tokenSymbol: "",
+            isRepaid: false,
+            isCollateralWithdrawn: false,
+            isCollateralSeizable: false,
+            isCollateralReturnable: false,
         };
 
-        this.createDebtOrder = this.createDebtOrder.bind(this);
-        this.updateBlockchainStatus = this.updateBlockchainStatus.bind(this);
+        this.reloadData = this.reloadData.bind(this);
+        this.reloadCollateralStatus = this.reloadCollateralStatus.bind(this);
+        this.reloadRepaymentStatus = this.reloadRepaymentStatus.bind(this);
+        this.reloadBalances = this.reloadBalances.bind(this);
+
+        this.createLoanRequest = this.createLoanRequest.bind(this);
+        this.allowPrincipalTransfer = this.allowPrincipalTransfer.bind(this);
+        this.allowRepayments = this.allowRepayments.bind(this);
+        this.makeRepayment = this.makeRepayment.bind(this);
+        this.returnCollateral = this.returnCollateral.bind(this);
+        this.fillLoanRequest = this.fillLoanRequest.bind(this);
     }
 
     async componentDidMount() {
-        this.updateBlockchainStatus();
+        this.reloadData();
     }
 
-    async updateBlockchainStatus() {
-        const { debtOrder } = this.state;
+    async reloadCollateralStatus() {
+        const { loan } = this.state;
+
+        if (!loan) {
+            return;
+        }
+
+        const isCollateralWithdrawn = await loan.isCollateralWithdrawn();
+        const isCollateralSeizable = await loan.isCollateralSeizable();
+        const isCollateralReturnable = await loan.isCollateralReturnable();
+
+        this.setState({
+            isCollateralWithdrawn,
+            isCollateralSeizable,
+            isCollateralReturnable,
+        });
+    }
+
+    async reloadRepaymentStatus() {
+        const { loan } = this.state;
+
+        if (!loan) {
+            return;
+        }
+
+        const totalAmount = await loan.getTotalExpectedRepaymentAmount();
+        const amountRepaid = await loan.getRepaidAmount();
+        const amountOutstanding = await loan.getOutstandingAmount();
+        const tokenSymbol = await loan.getRepaymentTokenSymbol();
+        const isRepaid = await loan.isRepaid();
+
+        this.setState({
+            totalAmount,
+            amountRepaid,
+            amountOutstanding,
+            tokenSymbol,
+            isRepaid,
+        });
+    }
+
+    async reloadBalances() {
+        const { loan } = this.state;
 
         const repAddress = await dharma.contracts.getTokenAddressBySymbolAsync("REP");
         const wethAddress = await dharma.contracts.getTokenAddressBySymbolAsync("WETH");
@@ -42,68 +101,134 @@ export default class App extends Component {
         const creditorREP = await dharma.token.getBalanceAsync(repAddress, creditorAddress);
         const creditorWETH = await dharma.token.getBalanceAsync(wethAddress, creditorAddress);
 
-        const collateralizerREP = debtOrder ? await debtOrder.getCurrentCollateralAmount() : 0;
+        const collateralizerREP = loan ? await loan.getCurrentCollateralAmount() : 0;
+
         // WETH never gets collateralized in this example.
         const collateralizerWETH = 0;
 
-        const isDebtOrderFilled = debtOrder ? await debtOrder.isFilled() : false;
-        const isDebtOrderRepaid = debtOrder ? await debtOrder.isRepaid() : false;
-
-        const isCollateralWithdrawn = debtOrder ? await debtOrder.isCollateralWithdrawn() : false;
-        const isCollateralSeizable = debtOrder ? await debtOrder.isCollateralSeizable() : false;
-        const isCollateralReturnable = debtOrder ? await debtOrder.isCollateralReturnable() : false;
-
-        const totalAmount = debtOrder ? await debtOrder.getTotalExpectedRepaymentAmount() : 0;
-        const amountRepaid = debtOrder ? await debtOrder.getRepaidAmount() : 0;
-        const amountOutstanding = debtOrder ? await debtOrder.getOutstandingAmount() : 0;
-        const tokenSymbol = debtOrder ? await debtOrder.getRepaymentTokenSymbol() : "";
-
         this.setState({
             balances: {
-                debtorREP: debtorREP
-                    .div(10 ** 18)
-                    .toNumber()
-                    .toLocaleString(),
-                debtorWETH: debtorWETH
-                    .div(10 ** 18)
-                    .toNumber()
-                    .toLocaleString(),
-                creditorREP: creditorREP
-                    .div(10 ** 18)
-                    .toNumber()
-                    .toLocaleString(),
-                creditorWETH: creditorWETH
-                    .div(10 ** 18)
-                    .toNumber()
-                    .toLocaleString(),
+                debtorREP: this.toString(debtorREP),
+                debtorWETH: this.toString(debtorWETH),
+                creditorREP: this.toString(creditorREP),
+                creditorWETH: this.toString(creditorWETH),
                 collateralizerREP,
                 collateralizerWETH
-            },
-            isDebtOrderFilled,
-            isDebtOrderRepaid,
-            // Collateral
-            isCollateralWithdrawn,
-            isCollateralSeizable,
-            isCollateralReturnable,
-            // Repayments
-            totalAmount,
-            amountRepaid,
-            amountOutstanding,
-            tokenSymbol,
+            }
         });
     }
 
-    async createDebtOrder(formData) {
+    async reloadData() {
+        this.reloadRepaymentStatus();
+        this.reloadCollateralStatus();
+        this.reloadBalances();
+    }
+
+    async allowPrincipalTransfer() {
         this.setState({
             isAwaitingBlockchain: true
         });
 
-        const { DebtOrder } = Dharma.Types;
+        const { loanRequest } = this.state;
+
+        await loanRequest.allowPrincipalTransfer(creditorAddress);
+
+        this.setState({
+            isAwaitingBlockchain: false,
+            hasAllowedPrincipalTransfer: true,
+        });
+
+        this.reloadData();
+    }
+
+    async allowRepayments() {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { loan } = this.state;
+
+        await loan.allowRepayments(debtorAddress);
+
+        this.setState({
+            isAwaitingBlockchain: false,
+            hasAllowedRepayments: true,
+        });
+
+        this.reloadData();
+    }
+
+    async fillLoanRequest() {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { loanRequest } = this.state;
+
+        try {
+            await loanRequest.fill(creditorAddress);
+
+            const loan = await loanRequest.generateLoan();
+
+            this.setState({
+                isAwaitingBlockchain: false,
+                isFilled: true,
+                loan,
+            });
+
+            this.reloadData();
+        } catch(e) {
+            console.error(e);
+
+            this.setState({
+                isAwaitingBlockchain: false,
+            });
+        }
+    }
+
+    async returnCollateral() {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { loan } = this.state;
+
+        await loan.returnCollateral();
+
+        this.setState({
+            isAwaitingBlockchain: false
+        });
+
+        this.reloadData();
+    }
+
+    async makeRepayment() {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { loan } = this.state;
+
+        await loan.makeRepayment();
+
+        this.setState({
+            isAwaitingBlockchain: false
+        });
+
+        this.reloadData();
+    }
+
+    async createLoanRequest(formData) {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { LoanRequest } = Dharma.Types;
 
         const { principal, collateral, termLength, interestRate } = formData;
 
         try {
-            const debtOrder = await DebtOrder.create(dharma, {
+            const loanRequest = await LoanRequest.create(dharma, {
                 principalAmount: principal,
                 principalToken: "WETH",
                 collateralAmount: collateral,
@@ -116,29 +241,42 @@ export default class App extends Component {
                 expiresInUnit: "weeks"
             });
 
-            await debtOrder.allowCollateralTransfer(debtorAddress);
+            await loanRequest.allowCollateralTransfer(debtorAddress);
 
             this.setState({
                 isAwaitingBlockchain: false,
-                debtOrder
+                hasAllowedCollateralTransfer: true,
+                isCreated: true,
+                loanRequest
             });
-        } catch (e) {
+
+            this.reloadData();
+
+        } catch(e) {
             console.error(e);
 
             this.setState({
                 isAwaitingBlockchain: false,
-                debtOrder: null
             });
         }
     }
 
+    toString(balance) {
+        return balance
+            .div(10 ** 18)
+            .toNumber()
+            .toLocaleString();
+    }
+
     render() {
         const {
-            balances,
-            debtOrder,
-            isDebtOrderFilled,
-            isDebtOrderRepaid,
+            // networking
             isAwaitingBlockchain,
+            // balances
+            balances,
+            // Loan Request
+            isCreated,
+            isFilled,
             // Collateral
             isCollateralWithdrawn,
             isCollateralSeizable,
@@ -148,6 +286,11 @@ export default class App extends Component {
             amountRepaid,
             amountOutstanding,
             tokenSymbol,
+            isRepaid,
+            // Authorizations
+            hasAllowedPrincipalTransfer,
+            // hasAllowedCollateralTransfer, TODO(kayvon): incorporate in authorizations summmary
+            hasAllowedRepayments,
         } = this.state;
 
         return (
@@ -158,22 +301,27 @@ export default class App extends Component {
                     <div className="row">
                         <div className="col-sm-7">
                             <Tutorials
-                                createDebtOrder={this.createDebtOrder}
-                                debtOrder={debtOrder}
-                                dharma={dharma}
                                 isAwaitingBlockchain={isAwaitingBlockchain}
-                                isDebtOrderFilled={isDebtOrderFilled}
+                                createLoanRequest={this.createLoanRequest}
+                                isCreated={isCreated}
+                                hasAllowedPrincipalTransfer={hasAllowedPrincipalTransfer}
+                                allowPrincipalTransfer={this.allowPrincipalTransfer}
+                                isFilled={isFilled}
+                                fillLoanRequest={this.fillLoanRequest}
+                                hasAllowedRepayments={hasAllowedRepayments}
+                                makeRepayment={this.makeRepayment}
+                                allowRepayments={this.allowRepayments}
+                                isRepaid={isRepaid}
                                 isCollateralReturnable={isCollateralReturnable}
-                                isDebtOrderRepaid={isDebtOrderRepaid}
-                                updateBlockchainStatus={this.updateBlockchainStatus}
+                                returnCollateral={this.returnCollateral}
                             />
                         </div>
 
                         <div className="col-sm-5">
                             <TutorialStatus
                                 balances={balances}
-                                debtOrder={debtOrder}
-                                isDebtOrderFilled={isDebtOrderFilled}
+                                isFilled={isFilled}
+                                isCreated={isCreated}
                                 isCollateralWithdrawn={isCollateralWithdrawn}
                                 isCollateralSeizable={isCollateralSeizable}
                                 isCollateralReturnable={isCollateralReturnable}
@@ -181,6 +329,7 @@ export default class App extends Component {
                                 amountRepaid={amountRepaid}
                                 amountOutstanding={amountOutstanding}
                                 tokenSymbol={tokenSymbol}
+                                isRepaid={isRepaid}
                             />
                         </div>
                     </div>

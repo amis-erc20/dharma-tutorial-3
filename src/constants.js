@@ -3,3 +3,6 @@ export const creditorAddress = "0x3fa17c1f1a0ae2db269f0b572ca44b15bc83929a";
 
 export const repAddress = "";
 export const wethAddress = "";
+
+export const successClass = "check text-success";
+export const dangerClass = "times text-danger";

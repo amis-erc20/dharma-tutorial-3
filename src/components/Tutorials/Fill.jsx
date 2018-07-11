@@ -2,15 +2,9 @@ import React, { Component } from "react";
 
 import { Button } from "../Button/Button";
 
-import { creditorAddress } from "../../constants";
-
 export default class Fill extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            hasGrantedTransfer: false
-        };
 
         this.handleAllowPrincipalTransfer = this.handleAllowPrincipalTransfer.bind(this);
         this.handleFillLoan = this.handleFillLoan.bind(this);
@@ -19,29 +13,24 @@ export default class Fill extends Component {
     async handleAllowPrincipalTransfer(event) {
         event.preventDefault();
 
-        const { debtOrder } = this.props;
+        const { allowPrincipalTransfer } = this.props;
 
-        await debtOrder.allowPrincipalTransfer(creditorAddress);
-
-        this.setState({ hasGrantedTransfer: true });
+        await allowPrincipalTransfer();
     }
 
     async handleFillLoan(event) {
         event.preventDefault();
 
-        const { debtOrder, updateBlockchainStatus } = this.props;
+        const { fillLoanRequest } = this.props;
 
-        await debtOrder.fill(creditorAddress);
-
-        await updateBlockchainStatus();
+        await fillLoanRequest();
     }
 
     render() {
-        const { debtOrder, isDebtOrderFilled } = this.props;
-        const { hasGrantedTransfer } = this.state;
+        const { isCreated, isFilled, hasAllowedPrincipalTransfer, isAwaitingBlockchain } = this.props;
 
-        const disableAllowTransfer = !debtOrder || hasGrantedTransfer;
-        const disableFill = !hasGrantedTransfer || isDebtOrderFilled;
+        const disableAllowTransfer = isAwaitingBlockchain || !isCreated || hasAllowedPrincipalTransfer;
+        const disableFill = isAwaitingBlockchain || !hasAllowedPrincipalTransfer || isFilled;
 
         return (
             <div className="FillTutorial container Tutorial" id="fill-loan">

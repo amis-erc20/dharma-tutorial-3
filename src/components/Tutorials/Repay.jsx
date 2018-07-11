@@ -2,15 +2,9 @@ import React, { Component } from "react";
 
 import { Button } from "../Button/Button";
 
-import { debtorAddress } from "../../constants";
-
 export default class Repay extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            hasAllowedRepayments: false
-        };
 
         this.handleAllowRepayments = this.handleAllowRepayments.bind(this);
         this.handleMakeRepayment = this.handleMakeRepayment.bind(this);
@@ -19,31 +13,24 @@ export default class Repay extends Component {
     async handleAllowRepayments(event) {
         event.preventDefault();
 
-        const { debtOrder } = this.props;
+        const { allowRepayments } = this.props;
 
-        await debtOrder.allowRepayments(debtorAddress);
-
-        this.setState({ hasAllowedRepayments: true });
+        await allowRepayments();
     }
 
     async handleMakeRepayment(event) {
         event.preventDefault();
 
-        const { debtOrder, updateBlockchainStatus } = this.props;
+        const { makeRepayment } = this.props;
 
-        await debtOrder.makeRepayment();
-
-        // TODO: await txn mined
-
-        await updateBlockchainStatus();
+        await makeRepayment();
     }
 
     render() {
-        const { debtOrder, isDebtOrderFilled, isDebtOrderRepaid } = this.props;
-        const { hasAllowedRepayments } = this.state;
+        const { isFilled, isRepaid, hasAllowedRepayments, isAwaitingBlockchain } = this.props;
 
-        const disableAllowRepayments = !debtOrder || !isDebtOrderFilled || hasAllowedRepayments;
-        const disableMakeRepayment = !hasAllowedRepayments || isDebtOrderRepaid;
+        const disableAllowRepayments = isAwaitingBlockchain || !isFilled || hasAllowedRepayments;
+        const disableMakeRepayment = isAwaitingBlockchain || !hasAllowedRepayments || isRepaid;
 
         return (
             <div className="RepayTutorial container Tutorial" id="fill-loan">
