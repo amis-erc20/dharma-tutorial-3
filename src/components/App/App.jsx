@@ -29,7 +29,7 @@ export default class App extends Component {
             isRepaid: false,
             isCollateralWithdrawn: false,
             isCollateralSeizable: false,
-            isCollateralReturnable: false
+            isCollateralReturnable: false,
         };
 
         this.reloadData = this.reloadData.bind(this);
@@ -63,7 +63,7 @@ export default class App extends Component {
         this.setState({
             isCollateralWithdrawn,
             isCollateralSeizable,
-            isCollateralReturnable
+            isCollateralReturnable,
         });
     }
 
@@ -85,7 +85,7 @@ export default class App extends Component {
             amountRepaid,
             amountOutstanding,
             tokenSymbol,
-            isRepaid
+            isRepaid,
         });
     }
 
@@ -113,7 +113,7 @@ export default class App extends Component {
                 creditorREP: this.toString(creditorREP),
                 creditorWETH: this.toString(creditorWETH),
                 collateralizerREP,
-                collateralizerWETH
+                collateralizerWETH,
             }
         });
     }
@@ -135,7 +135,7 @@ export default class App extends Component {
 
         this.setState({
             isAwaitingBlockchain: false,
-            hasAllowedPrincipalTransfer: true
+            hasAllowedPrincipalTransfer: true,
         });
 
         this.reloadData();
@@ -143,7 +143,7 @@ export default class App extends Component {
 
     async allowRepayments() {
         this.setState({
-            isAwaitingBlockchain: true
+            isAwaitingBlockchain: true,
         });
 
         const { loan } = this.state;
@@ -160,7 +160,7 @@ export default class App extends Component {
 
         this.setState({
             isAwaitingBlockchain: false,
-            hasAllowedRepayments: true
+            hasAllowedRepayments: true,
         });
 
         this.reloadData();
@@ -168,7 +168,7 @@ export default class App extends Component {
 
     async fillLoanRequest() {
         this.setState({
-            isAwaitingBlockchain: true
+            isAwaitingBlockchain: true,
         });
 
         const { loanRequest } = this.state;
@@ -181,7 +181,7 @@ export default class App extends Component {
             this.setState({
                 isAwaitingBlockchain: false,
                 isFilled: true,
-                loan
+                loan,
             });
 
             this.reloadData();
@@ -189,14 +189,14 @@ export default class App extends Component {
             console.error(e);
 
             this.setState({
-                isAwaitingBlockchain: false
+                isAwaitingBlockchain: false,
             });
         }
     }
 
     async makeRepayment() {
         this.setState({
-            isAwaitingBlockchain: true
+            isAwaitingBlockchain: true,
         });
 
         const { loan } = this.state;
@@ -211,7 +211,7 @@ export default class App extends Component {
         // your code here
 
         this.setState({
-            isAwaitingBlockchain: false
+            isAwaitingBlockchain: false,
         });
 
         this.reloadData();
@@ -219,7 +219,7 @@ export default class App extends Component {
 
     async returnCollateral() {
         this.setState({
-            isAwaitingBlockchain: true
+            isAwaitingBlockchain: true,
         });
 
         const { loan } = this.state;
@@ -233,7 +233,7 @@ export default class App extends Component {
         // your code here
 
         this.setState({
-            isAwaitingBlockchain: false
+            isAwaitingBlockchain: false,
         });
 
         this.reloadData();
@@ -241,7 +241,7 @@ export default class App extends Component {
 
     async createLoanRequest(formData) {
         this.setState({
-            isAwaitingBlockchain: true
+            isAwaitingBlockchain: true,
         });
 
         const { LoanRequest } = Dharma.Types;
@@ -259,7 +259,7 @@ export default class App extends Component {
                 termUnit: "months",
                 debtorAddress: debtorAddress,
                 expiresInDuration: 1,
-                expiresInUnit: "weeks"
+                expiresInUnit: "weeks",
             });
 
             await loanRequest.allowCollateralTransfer(debtorAddress);
@@ -268,7 +268,7 @@ export default class App extends Component {
                 isAwaitingBlockchain: false,
                 hasAllowedCollateralTransfer: true,
                 isCreated: true,
-                loanRequest
+                loanRequest,
             });
 
             this.reloadData();
@@ -276,7 +276,7 @@ export default class App extends Component {
             console.error(e);
 
             this.setState({
-                isAwaitingBlockchain: false
+                isAwaitingBlockchain: false,
             });
         }
     }
@@ -310,7 +310,7 @@ export default class App extends Component {
             // Authorizations
             hasAllowedPrincipalTransfer,
             // hasAllowedCollateralTransfer, TODO(kayvon): incorporate in authorizations summmary
-            hasAllowedRepayments
+            hasAllowedRepayments,
         } = this.state;
 
         return (
