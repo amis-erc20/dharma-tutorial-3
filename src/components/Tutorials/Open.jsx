@@ -4,7 +4,9 @@ import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
 export default class Open extends Component {
     render() {
-        const { createDebtOrder, disableForm } = this.props;
+        const { createLoanRequest, isAwaitingBlockchain, isCreated } = this.props;
+
+        const isDisabled = isAwaitingBlockchain || isCreated;
 
         return (
             <div className="OpenTutorial container Tutorial" id="open-loan">
@@ -12,7 +14,7 @@ export default class Open extends Component {
                     <h3 className="App-title">Request a Loan on Dharma</h3>
                 </header>
 
-                <RequestLoanForm createDebtOrder={createDebtOrder} disableForm={disableForm} />
+                <RequestLoanForm createLoanRequest={createLoanRequest} disableForm={isDisabled} />
             </div>
         );
     }
