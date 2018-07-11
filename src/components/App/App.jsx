@@ -194,28 +194,6 @@ export default class App extends Component {
         }
     }
 
-    async returnCollateral() {
-        this.setState({
-            isAwaitingBlockchain: true
-        });
-
-        const { loan } = this.state;
-
-        /*
-         * Step 3:
-         *
-         * Let's add the final line of code that will enable the borrower to reclaim their collateral.
-         */
-
-        // your code here
-
-        this.setState({
-            isAwaitingBlockchain: false
-        });
-
-        this.reloadData();
-    }
-
     async makeRepayment() {
         this.setState({
             isAwaitingBlockchain: true
@@ -228,6 +206,28 @@ export default class App extends Component {
          * Having authorized the borrower to make repayments, let's start paying off this loan. 
          *
          * Add code to enable the borrower to start paying back their loan, one installment at a time.
+         */
+
+        // your code here
+
+        this.setState({
+            isAwaitingBlockchain: false
+        });
+
+        this.reloadData();
+    }
+
+    async returnCollateral() {
+        this.setState({
+            isAwaitingBlockchain: true
+        });
+
+        const { loan } = this.state;
+
+        /*
+         * Step 3:
+         *
+         * Let's add the final line of code that will enable the borrower to reclaim their collateral.
          */
 
         // your code here
