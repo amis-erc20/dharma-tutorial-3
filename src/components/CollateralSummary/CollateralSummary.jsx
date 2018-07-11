@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 
+import { dangerClass, successClass } from "../../constants";
+
 export default class CollateralSummary extends Component {
     render() {
         const { isCollateralWithdrawn, isCollateralSeizable, isCollateralReturnable } = this.props;
 
-        const successClass = "check text-success";
-        const dangerClass = "times text-danger";
-
         return (
             <div>
-                <h3>Collateral Summary</h3>
+                <h4>Collateral Summary</h4>
 
                 <table className="table table-bordered table-hover">
                     <tbody>
