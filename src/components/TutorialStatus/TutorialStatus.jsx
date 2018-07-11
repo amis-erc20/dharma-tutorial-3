@@ -8,30 +8,31 @@ import "./TutorialStatus.css";
 
 export default class TutorialStatus extends Component {
     render() {
-        const { debtOrder,
-                balances,
-                isDebtOrderFilled,
-                // Collateral
-                isCollateralWithdrawn,
-                isCollateralSeizable,
-                isCollateralReturnable,
-                // Repayments
-                totalAmount,
-                amountRepaid,
-                amountOutstanding,
-                tokenSymbol,
+        const {
+            balances,
+            isCreated,
+            isFilled,
+            // Collateral
+            isCollateralWithdrawn,
+            isCollateralSeizable,
+            isCollateralReturnable,
+            // Repayments
+            totalAmount,
+            amountRepaid,
+            amountOutstanding,
+            tokenSymbol,
+            isRepaid,
         } = this.props;
-
-        const isCreated = debtOrder ? true : false;
 
         return (
             <div className="TutorialStatus">
-                <LoanSummary isDebtOrderFilled={isDebtOrderFilled} isCreated={isCreated} />
+                <LoanSummary isCreated={isCreated} isFilled={isFilled} />
                 <RepaymentSummary
                     totalAmount={totalAmount}
                     amountRepaid={amountRepaid}
                     amountOutstanding={amountOutstanding}
                     tokenSymbol={tokenSymbol}
+                    isRepaid={isRepaid}
                 />
                 <CollateralSummary
                     isCollateralWithdrawn={isCollateralWithdrawn}
