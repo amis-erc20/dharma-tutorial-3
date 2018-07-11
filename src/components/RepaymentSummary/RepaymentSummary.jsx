@@ -8,7 +8,7 @@ export default class RepaymentSummary extends Component {
 
         return (
             <div>
-                <h3>Repayment Summary</h3>
+                <h4>Repayment Summary</h4>
 
                 <table className="table table-bordered table-hover">
                     <tbody>

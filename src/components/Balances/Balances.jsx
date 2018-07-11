@@ -15,7 +15,7 @@ export default class Balances extends Component {
 
         return (
             <div className="Balances">
-                <h3>Balances</h3>
+                <h4>Balances</h4>
 
                 <table className="table table-bordered table-hover">
                     <thead>
