@@ -9,45 +9,57 @@ import "./Tutorials.css";
 export default class Tutorials extends Component {
     render() {
         const {
-            createDebtOrder,
-            debtOrder,
-            dharma,
+            // networking
             isAwaitingBlockchain,
+            // create
+            createLoanRequest,
+            isCreated,
+            // fill
+            allowPrincipalTransfer,
+            hasAllowedPrincipalTransfer,
+            fillLoanRequest,
+            isFilled,
+            // repayment
+            hasAllowedRepayments,
+            allowRepayments,
+            makeRepayment,
+            isRepaid,
+            // collateral
+            returnCollateral,
             isCollateralReturnable,
-            isDebtOrderFilled,
-            isDebtOrderRepaid,
-            updateBlockchainStatus
         } = this.props;
-
-        const disableOpenForm = isAwaitingBlockchain || debtOrder;
 
         return (
             <div>
                 <Open
                     className="Tutorial"
-                    disableForm={disableOpenForm}
-                    dharma={dharma}
-                    debtOrder={debtOrder}
-                    createDebtOrder={createDebtOrder}
+                    createLoanRequest={createLoanRequest}
+                    isCreated={isCreated}
+                    isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Fill
                     className="Tutorial"
-                    debtOrder={debtOrder}
-                    updateBlockchainStatus={updateBlockchainStatus}
-                    isDebtOrderFilled={isDebtOrderFilled}
+                    allowPrincipalTransfer={allowPrincipalTransfer}
+                    hasAllowedPrincipalTransfer={hasAllowedPrincipalTransfer}
+                    fillLoanRequest={fillLoanRequest}
+                    isFilled={isFilled}
+                    isCreated={isCreated}
+                    isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Repay
                     className="Tutorial"
-                    debtOrder={debtOrder}
-                    updateBlockchainStatus={updateBlockchainStatus}
-                    isDebtOrderFilled={isDebtOrderFilled}
-                    isDebtOrderRepaid={isDebtOrderRepaid}
+                    makeRepayment={makeRepayment}
+                    allowRepayments={allowRepayments}
+                    hasAllowedRepayments={hasAllowedRepayments}
+                    isFilled={isFilled}
+                    isRepaid={isRepaid}
+                    isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Collateral
                     className="Tutorial"
-                    debtOrder={debtOrder}
+                    returnCollateral={returnCollateral}
                     isCollateralReturnable={isCollateralReturnable}
-                    updateBlockchainStatus={updateBlockchainStatus}
+                    isAwaitingBlockchain={isAwaitingBlockchain}
                 />
             </div>
         );
