@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 
-import "./LoanSummary.css";
+import "./LoanRequestSummary.css";
 
 import { dangerClass, successClass } from "../../constants";
 
-export default class LoanSummary extends Component {
+export default class LoanRequestSummary extends Component {
     render() {
         const { isFilled, isCreated } = this.props;
 
         return (
             <div>
-                <h4>Loan Summary</h4>
+                <h4>Loan Request Summary</h4>
 
                 <table className="table table-bordered table-hover">
                     <tbody>

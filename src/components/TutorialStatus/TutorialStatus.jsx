@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Balances from "../Balances/Balances";
-import LoanSummary from "../LoanSummary/LoanSummary";
+import LoanRequestSummary from "../LoanRequestSummary/LoanRequestSummary";
 import RepaymentSummary from "../RepaymentSummary/RepaymentSummary";
 import CollateralSummary from "../CollateralSummary/CollateralSummary"
 
@@ -26,7 +26,7 @@ export default class TutorialStatus extends Component {
         return (
             <div className="TutorialStatus">
                 <Balances balances={balances} />
-                <LoanSummary
+                <LoanRequestSummary
                     isCreated={isCreated}
                     isFilled={isFilled}
                 />
