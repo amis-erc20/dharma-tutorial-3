@@ -2,16 +2,15 @@ import React, { Component } from "react";
 
 import "./LoanSummary.css";
 
+import { dangerClass, successClass } from "../../constants";
+
 export default class LoanSummary extends Component {
     render() {
-        const { isDebtOrderFilled, isCreated } = this.props;
-
-        const successClass = "check text-success";
-        const dangerClass = "times text-danger";
+        const { isFilled, isCreated } = this.props;
 
         return (
             <div>
-                <h3>Loan Summary</h3>
+                <h4>Loan Summary</h4>
 
                 <table className="table table-bordered table-hover">
                     <tbody>
@@ -24,7 +23,7 @@ export default class LoanSummary extends Component {
                     <tr>
                         <th>Filled</th>
                         <td className="check-box-row">
-                            <i className={`summary-check fa fa-${isDebtOrderFilled ? successClass : dangerClass}`}/>
+                            <i className={`summary-check fa fa-${isFilled ? successClass : dangerClass}`}/>
                         </td>
                     </tr>
                     </tbody>
