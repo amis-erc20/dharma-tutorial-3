@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
+import { dangerClass, successClass } from "../../constants";
+
 export default class RepaymentSummary extends Component {
     render() {
-        const { totalAmount, amountRepaid, amountOutstanding, tokenSymbol } = this.props;
+        const { totalAmount, amountRepaid, amountOutstanding, tokenSymbol, isRepaid } = this.props;
 
         return (
             <div>
@@ -26,6 +28,12 @@ export default class RepaymentSummary extends Component {
                         <th>Outstanding</th>
                         <td className="check-box-row">
                             {`${amountOutstanding} ${tokenSymbol}`}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Is Repaid</th>
+                        <td className="check-box-row">
+                            <i className={`summary-check fa fa-${isRepaid ? successClass : dangerClass}`}/>
                         </td>
                     </tr>
                     </tbody>
