@@ -29,7 +29,7 @@ export default class App extends Component {
             isRepaid: false,
             isCollateralWithdrawn: false,
             isCollateralSeizable: false,
-            isCollateralReturnable: false,
+            isCollateralReturnable: false
         };
 
         this.reloadData = this.reloadData.bind(this);
@@ -63,7 +63,7 @@ export default class App extends Component {
         this.setState({
             isCollateralWithdrawn,
             isCollateralSeizable,
-            isCollateralReturnable,
+            isCollateralReturnable
         });
     }
 
@@ -85,7 +85,7 @@ export default class App extends Component {
             amountRepaid,
             amountOutstanding,
             tokenSymbol,
-            isRepaid,
+            isRepaid
         });
     }
 
@@ -135,7 +135,7 @@ export default class App extends Component {
 
         this.setState({
             isAwaitingBlockchain: false,
-            hasAllowedPrincipalTransfer: true,
+            hasAllowedPrincipalTransfer: true
         });
 
         this.reloadData();
@@ -148,11 +148,19 @@ export default class App extends Component {
 
         const { loan } = this.state;
 
-        await loan.allowRepayments(debtorAddress);
+        /*
+         * Step 1:
+         * In the second tutorial, we authorized the Dharma smart contracts to transfer
+         * the borrower's collateral and the lender's principal. Before making repayments
+         * on their loan, the borrower needs to do something similar, authorizing the
+         * Dharma smart contracts to transfer the repayments.
+         */
+
+        // your code here
 
         this.setState({
             isAwaitingBlockchain: false,
-            hasAllowedRepayments: true,
+            hasAllowedRepayments: true
         });
 
         this.reloadData();
@@ -173,15 +181,15 @@ export default class App extends Component {
             this.setState({
                 isAwaitingBlockchain: false,
                 isFilled: true,
-                loan,
+                loan
             });
 
             this.reloadData();
-        } catch(e) {
+        } catch (e) {
             console.error(e);
 
             this.setState({
-                isAwaitingBlockchain: false,
+                isAwaitingBlockchain: false
             });
         }
     }
@@ -193,7 +201,13 @@ export default class App extends Component {
 
         const { loan } = this.state;
 
-        await loan.returnCollateral();
+        /*
+         * Step 3:
+         *
+         * Let's add the final line of code that will enable the borrower to reclaim their collateral.
+         */
+
+        // your code here
 
         this.setState({
             isAwaitingBlockchain: false
@@ -209,7 +223,14 @@ export default class App extends Component {
 
         const { loan } = this.state;
 
-        await loan.makeRepayment();
+        /*
+         * Step 2:
+         * Having authorized the borrower to make repayments, let's start paying off this loan. 
+         *
+         * Add code to enable the borrower to start paying back their loan, one installment at a time.
+         */
+
+        // your code here
 
         this.setState({
             isAwaitingBlockchain: false
@@ -251,12 +272,11 @@ export default class App extends Component {
             });
 
             this.reloadData();
-
-        } catch(e) {
+        } catch (e) {
             console.error(e);
 
             this.setState({
-                isAwaitingBlockchain: false,
+                isAwaitingBlockchain: false
             });
         }
     }
@@ -290,7 +310,7 @@ export default class App extends Component {
             // Authorizations
             hasAllowedPrincipalTransfer,
             // hasAllowedCollateralTransfer, TODO(kayvon): incorporate in authorizations summmary
-            hasAllowedRepayments,
+            hasAllowedRepayments
         } = this.state;
 
         return (
