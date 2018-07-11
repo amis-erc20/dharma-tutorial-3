@@ -12,15 +12,15 @@ export default class Collateral extends Component {
     async handleReturnCollateral(event) {
         event.preventDefault();
 
-        const { debtOrder, updateBlockchainStatus } = this.props;
+        const { returnCollateral } = this.props;
 
-        await debtOrder.returnCollateral();
-
-        await updateBlockchainStatus();
+        await returnCollateral();
     }
 
     render() {
-        const { isCollateralReturnable } = this.props;
+        const { isCollateralReturnable, isAwaitingBlockchain } = this.props;
+
+        const isDisabled = isAwaitingBlockchain || !isCollateralReturnable;
 
         return (
             <div className="CollateralTutorial container Tutorial" id="fill-loan">
@@ -29,7 +29,7 @@ export default class Collateral extends Component {
                 </header>
                 <Button
                     label={"Return Collateral"}
-                    disabled={!isCollateralReturnable}
+                    disabled={isDisabled}
                     onClick={this.handleReturnCollateral}
                 />
             </div>
