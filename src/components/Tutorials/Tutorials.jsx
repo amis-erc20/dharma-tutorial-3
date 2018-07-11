@@ -31,14 +31,12 @@ export default class Tutorials extends Component {
 
         return (
             <div>
-                    className="Tutorial"
                 <Create
                     createLoanRequest={createLoanRequest}
                     isCreated={isCreated}
                     isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Fill
-                    className="Tutorial"
                     allowPrincipalTransfer={allowPrincipalTransfer}
                     hasAllowedPrincipalTransfer={hasAllowedPrincipalTransfer}
                     fillLoanRequest={fillLoanRequest}
@@ -47,7 +45,6 @@ export default class Tutorials extends Component {
                     isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Repay
-                    className="Tutorial"
                     makeRepayment={makeRepayment}
                     allowRepayments={allowRepayments}
                     hasAllowedRepayments={hasAllowedRepayments}
@@ -56,7 +53,6 @@ export default class Tutorials extends Component {
                     isAwaitingBlockchain={isAwaitingBlockchain}
                 />
                 <Collateral
-                    className="Tutorial"
                     returnCollateral={returnCollateral}
                     isCollateralReturnable={isCollateralReturnable}
                     isAwaitingBlockchain={isAwaitingBlockchain}
