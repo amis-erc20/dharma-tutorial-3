@@ -20,19 +20,20 @@ export default class TutorialStatus extends Component {
             totalAmount,
             amountRepaid,
             amountOutstanding,
-            tokenSymbol,
-            isRepaid,
+            tokenSymbol
         } = this.props;
 
         return (
             <div className="TutorialStatus">
-                <LoanSummary isCreated={isCreated} isFilled={isFilled} />
+                <LoanSummary
+                    isCreated={isCreated}
+                    isFilled={isFilled}
+                />
                 <RepaymentSummary
                     totalAmount={totalAmount}
                     amountRepaid={amountRepaid}
                     amountOutstanding={amountOutstanding}
                     tokenSymbol={tokenSymbol}
-                    isRepaid={isRepaid}
                 />
                 <CollateralSummary
                     isCollateralWithdrawn={isCollateralWithdrawn}
