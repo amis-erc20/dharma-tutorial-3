@@ -13,19 +13,19 @@ export default class RepaymentSummary extends Component {
                 <table className="table table-bordered table-hover">
                     <tbody>
                     <tr>
-                        <th>Total</th>
+                        <th>Principal + Interest</th>
                         <td className="check-box-row">
                             {`${totalAmount} ${tokenSymbol}`}
                         </td>
                     </tr>
                     <tr>
-                        <th>Repaid</th>
+                        <th>Amount Repaid</th>
                         <td className="check-box-row">
                             {`${amountRepaid} ${tokenSymbol}`}
                         </td>
                     </tr>
                     <tr>
-                        <th>Outstanding</th>
+                        <th>Amount Outstanding</th>
                         <td className="check-box-row">
                             {`${amountOutstanding} ${tokenSymbol}`}
                         </td>
