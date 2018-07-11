@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Open from "./Open";
+import Create from "./Create";
 import Fill from "./Fill";
 import Repay from "./Repay";
 import Collateral from "./Collateral";
@@ -31,8 +31,8 @@ export default class Tutorials extends Component {
 
         return (
             <div>
-                <Open
                     className="Tutorial"
+                <Create
                     createLoanRequest={createLoanRequest}
                     isCreated={isCreated}
                     isAwaitingBlockchain={isAwaitingBlockchain}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { RequestLoanForm } from "../RequestLoanForm/RequestLoanForm";
 
-export default class Open extends Component {
+export default class Create extends Component {
     render() {
         const { createLoanRequest, isAwaitingBlockchain, isCreated } = this.props;
 
