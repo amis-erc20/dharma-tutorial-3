@@ -47,6 +47,8 @@ export default class App extends Component {
 
     async componentDidMount() {
         this.reloadData();
+
+        await dharma.blockchain.web3Utils.mineBlock();
     }
 
     async reloadCollateralStatus() {
