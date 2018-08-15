@@ -51,7 +51,7 @@ export class RequestLoanForm extends Component {
                 />
 
                 <RequestLoanFormInput
-                    label="Collateral Amount (REP)"
+                    label="Collateral Amount (AMIS)"
                     name="collateral"
                     value={collateral}
                     disabled={disableForm}

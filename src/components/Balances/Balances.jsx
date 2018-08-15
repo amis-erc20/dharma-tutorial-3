@@ -5,11 +5,11 @@ import "./Balances.css";
 export default class Balances extends Component {
     render() {
         const {
-            debtorREP,
+            debtorAMIS,
             debtorWETH,
-            creditorREP,
+            creditorAMIS,
             creditorWETH,
-            collateralizerREP,
+            collateralizerAMIS,
             collateralizerWETH
         } = this.props.balances;
 
@@ -22,24 +22,24 @@ export default class Balances extends Component {
                         <tr>
                             <th></th>
                             <th>WETH</th>
-                            <th>REP</th>
+                            <th>AMIS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>Borrower</th>
                             <td>{debtorWETH}</td>
-                            <td>{debtorREP}</td>
+                            <td>{debtorAMIS}</td>
                         </tr>
                         <tr>
                             <th>Lender</th>
                             <td>{creditorWETH}</td>
-                            <td>{creditorREP}</td>
+                            <td>{creditorAMIS}</td>
                         </tr>
                         <tr>
                             <th>Collateral Smart Contract</th>
                             <td>{collateralizerWETH}</td>
-                            <td>{collateralizerREP}</td>
+                            <td>{collateralizerAMIS}</td>
                         </tr>
                     </tbody>
                 </table>

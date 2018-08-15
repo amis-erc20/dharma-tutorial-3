@@ -92,27 +92,27 @@ export default class App extends Component {
     async reloadBalances() {
         const { loan } = this.state;
 
-        const repAddress = await dharma.contracts.getTokenAddressBySymbolAsync("REP");
+        const amisAddress = await dharma.contracts.getTokenAddressBySymbolAsync("AMIS");
         const wethAddress = await dharma.contracts.getTokenAddressBySymbolAsync("WETH");
 
-        const debtorREP = await dharma.token.getBalanceAsync(repAddress, debtorAddress);
+        const debtorAMIS = await dharma.token.getBalanceAsync(amisAddress, debtorAddress);
         const debtorWETH = await dharma.token.getBalanceAsync(wethAddress, debtorAddress);
 
-        const creditorREP = await dharma.token.getBalanceAsync(repAddress, creditorAddress);
+        const creditorAMIS = await dharma.token.getBalanceAsync(amisAddress, creditorAddress);
         const creditorWETH = await dharma.token.getBalanceAsync(wethAddress, creditorAddress);
 
-        const collateralizerREP = loan ? await loan.getCurrentCollateralAmount() : 0;
+        const collateralizerAMIS = loan ? await loan.getCurrentCollateralAmount() : 0;
 
         // WETH never gets collateralized in this example.
         const collateralizerWETH = 0;
 
         this.setState({
             balances: {
-                debtorREP: this.toString(debtorREP),
+                debtorAMIS: this.toString(debtorAMIS),
                 debtorWETH: this.toString(debtorWETH),
-                creditorREP: this.toString(creditorREP),
+                creditorAMIS: this.toString(creditorAMIS),
                 creditorWETH: this.toString(creditorWETH),
-                collateralizerREP,
+                collateralizerAMIS,
                 collateralizerWETH,
             }
         });
@@ -156,7 +156,7 @@ export default class App extends Component {
          * Dharma smart contracts to transfer the repayments.
          */
 
-        // your code here
+        await loan.allowRepayments(debtorAddress);
 
         this.setState({
             isAwaitingBlockchain: false,
@@ -208,7 +208,7 @@ export default class App extends Component {
          * Add code to enable the borrower to start paying back their loan, one installment at a time.
          */
 
-        // your code here
+        await loan.makeRepayment();
 
         this.setState({
             isAwaitingBlockchain: false,
@@ -230,7 +230,7 @@ export default class App extends Component {
          * Let's add the final line of code that will enable the borrower to reclaim their collateral.
          */
 
-        // your code here
+        await loan.returnCollateral();
 
         this.setState({
             isAwaitingBlockchain: false,
@@ -253,7 +253,7 @@ export default class App extends Component {
                 principalAmount: principal,
                 principalToken: "WETH",
                 collateralAmount: collateral,
-                collateralToken: "REP",
+                collateralToken: "AMIS",
                 interestRate: interestRate,
                 termDuration: termLength,
                 termUnit: "months",
