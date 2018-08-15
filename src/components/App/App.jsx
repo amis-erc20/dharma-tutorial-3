@@ -156,7 +156,7 @@ export default class App extends Component {
          * Dharma smart contracts to transfer the repayments.
          */
 
-        // your code here
+        await loan.allowRepayments(debtorAddress);
 
         this.setState({
             isAwaitingBlockchain: false,
@@ -208,7 +208,7 @@ export default class App extends Component {
          * Add code to enable the borrower to start paying back their loan, one installment at a time.
          */
 
-        // your code here
+        await loan.makeRepayment();
 
         this.setState({
             isAwaitingBlockchain: false,
@@ -230,7 +230,7 @@ export default class App extends Component {
          * Let's add the final line of code that will enable the borrower to reclaim their collateral.
          */
 
-        // your code here
+        await loan.returnCollateral();
 
         this.setState({
             isAwaitingBlockchain: false,
